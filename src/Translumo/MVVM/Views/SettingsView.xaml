@@ -11,10 +11,10 @@
     xmlns:views="clr-namespace:Translumo.MVVM.Views"
     Name="wSettings"
     Title="{DynamicResource Str.Title.SettingWindow}"
-    Width="1060"
-    Height="700"
-    MinWidth="920"
-    MinHeight="600"
+    Width="960"
+    Height="640"
+    MinWidth="800"
+    MinHeight="540"
     Activated="wSettings_Activated"
     Background="Transparent"
     AllowsTransparency="True"
@@ -49,12 +49,12 @@
     </Window.Resources>
 
     <Border Background="{DynamicResource BdBackgroundBrush}"
-            CornerRadius="26"
-            BorderBrush="#D1D5DB"
+            CornerRadius="22"
+            BorderBrush="#E5E7EB"
             BorderThickness="1"
             ClipToBounds="True">
         <Border.Effect>
-            <DropShadowEffect BlurRadius="24" ShadowDepth="4" Direction="270" Color="#25000000" RenderingBias="Performance" />
+            <DropShadowEffect BlurRadius="20" ShadowDepth="4" Direction="270" Color="#18000000" RenderingBias="Performance" />
         </Border.Effect>
 
         <materialDesign:DialogHost CloseOnClickAway="{Binding DialogService.AllowCloseOnClickAway}" IsOpen="{Binding DialogService.IsOpen}">
@@ -64,14 +64,14 @@
 
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <!-- Column 0: Left Navigation Rail -->
-                    <ColumnDefinition Width="76" />
-                    <!-- Column 1: Main Bento Dashboard Area -->
+                    <!-- Left Navigation Rail -->
+                    <ColumnDefinition Width="70" />
+                    <!-- Main Bento Card Area -->
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <!-- LEFT NAVIGATION RAIL -->
-                <Border Grid.Column="0" Background="{DynamicResource BdBackgroundBrush}" BorderBrush="#E0E2E6" BorderThickness="0,0,1,0">
+                <!-- 1. LEFT MINIMALIST NAVIGATION RAIL -->
+                <Border Grid.Column="0" Background="{DynamicResource BdBackgroundBrush}" BorderBrush="#E5E7EB" BorderThickness="0,0,1,0">
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -79,17 +79,14 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <!-- 1. Top Logo Monogram -->
-                        <Border Grid.Row="0" Margin="0,18,0,16" HorizontalAlignment="Center">
-                            <Border Width="42" Height="42" CornerRadius="14" Background="#0F1115" Cursor="Hand" MouseDown="wSettings_MouseDown">
-                                <Border.Effect>
-                                    <DropShadowEffect BlurRadius="8" ShadowDepth="2" Direction="270" Color="#20000000" RenderingBias="Performance" />
-                                </Border.Effect>
-                                <materialDesign:PackIcon Kind="LightningBolt" Width="22" Height="22" Foreground="#FFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        <!-- Top Brand Mark -->
+                        <Border Grid.Row="0" Margin="0,16,0,16" HorizontalAlignment="Center">
+                            <Border Width="40" Height="40" CornerRadius="12" Background="#000000" Cursor="Hand" MouseDown="wSettings_MouseDown">
+                                <materialDesign:PackIcon Kind="LightningBolt" Width="20" Height="20" Foreground="#FFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center" />
                             </Border>
                         </Border>
 
-                        <!-- 2. Nav Items ListBox -->
+                        <!-- Navigation Items -->
                         <ListBox Grid.Row="1"
                                  x:Name="NavListBox"
                                  ItemsSource="{Binding NavigationItems}"
@@ -111,21 +108,21 @@
                                         <Setter.Value>
                                             <ControlTemplate TargetType="{x:Type ListBoxItem}">
                                                 <Border x:Name="ItemPill"
-                                                        Width="46"
-                                                        Height="46"
-                                                        CornerRadius="18"
+                                                        Width="44"
+                                                        Height="44"
+                                                        CornerRadius="14"
                                                         Background="Transparent">
                                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
                                                 </Border>
                                                 <ControlTemplate.Triggers>
                                                     <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter TargetName="ItemPill" Property="Background" Value="#E2E4E8" />
+                                                        <Setter TargetName="ItemPill" Property="Background" Value="#E5E7EB" />
                                                     </Trigger>
                                                     <Trigger Property="IsSelected" Value="True">
                                                         <Setter TargetName="ItemPill" Property="Background" Value="#FFFFFF" />
                                                         <Setter TargetName="ItemPill" Property="Effect">
                                                             <Setter.Value>
-                                                                <DropShadowEffect BlurRadius="12" ShadowDepth="2" Direction="270" Color="#18000000" RenderingBias="Performance" />
+                                                                <DropShadowEffect BlurRadius="8" ShadowDepth="1" Direction="270" Color="#15000000" RenderingBias="Performance" />
                                                             </Setter.Value>
                                                         </Setter>
                                                     </Trigger>
@@ -138,13 +135,13 @@
                             <ListBox.ItemTemplate>
                                 <DataTemplate>
                                     <Grid ToolTip="{Binding Label}">
-                                        <materialDesign:PackIcon Kind="{Binding Icon}" Width="22" Height="22" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <materialDesign:PackIcon Kind="{Binding Icon}" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
                                             <materialDesign:PackIcon.Style>
                                                 <Style TargetType="{x:Type materialDesign:PackIcon}">
-                                                    <Setter Property="Foreground" Value="#8E95A3" />
+                                                    <Setter Property="Foreground" Value="#71717A" />
                                                     <Style.Triggers>
                                                         <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
-                                                            <Setter Property="Foreground" Value="#0F1115" />
+                                                            <Setter Property="Foreground" Value="#000000" />
                                                         </DataTrigger>
                                                     </Style.Triggers>
                                                 </Style>
@@ -155,361 +152,127 @@
                             </ListBox.ItemTemplate>
                         </ListBox>
 
-                        <!-- 3. Bottom Actions (About / Info) -->
+                        <!-- Bottom Info Button -->
                         <StackPanel Grid.Row="2" Margin="0,0,0,16" HorizontalAlignment="Center">
                             <Button Command="{Binding AboutDialogOpenedCommand}"
-                                    Width="42"
-                                    Height="42"
+                                    Width="38"
+                                    Height="38"
                                     Cursor="Hand"
                                     Style="{StaticResource RoundSecondaryButton}"
                                     ToolTip="Névjegy &amp; Rendszerinformáció">
-                                <materialDesign:PackIcon Kind="InformationOutline" Width="20" Height="20" Foreground="#8E95A3" />
+                                <materialDesign:PackIcon Kind="InformationOutline" Width="18" Height="18" Foreground="#71717A" />
                             </Button>
                         </StackPanel>
                     </Grid>
                 </Border>
 
-                <!-- MAIN DASHBOARD CONTENT AREA -->
-                <Grid Grid.Column="1" Margin="16,14,20,16">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" /> <!-- Top Header Bar -->
-                        <RowDefinition Height="Auto" /> <!-- Hero Bento Card -->
-                        <RowDefinition Height="*" />    <!-- Main Bento Grid -->
-                    </Grid.RowDefinitions>
+                <!-- 2. MAIN BENTO CARD -->
+                <Border Grid.Column="1"
+                        Margin="14,14,16,16"
+                        CornerRadius="20"
+                        Background="#FFFFFF"
+                        BorderBrush="#E5E7EB"
+                        BorderThickness="1"
+                        Padding="24,20">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="12" ShadowDepth="2" Direction="270" Color="#08000000" RenderingBias="Performance" />
+                    </Border.Effect>
 
-                    <!-- 1. TOP HEADER BAR -->
-                    <Grid Grid.Row="0" Margin="4,2,4,12" MouseDown="wSettings_MouseDown" Background="Transparent">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" /> <!-- Clean Header & Controls -->
+                            <RowDefinition Height="*" />    <!-- Content Area -->
+                        </Grid.RowDefinitions>
 
-                        <!-- Title & Subtitle -->
-                        <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                            <TextBlock Text="Vezérlőpult &amp; Beállítások"
-                                       FontSize="20"
-                                       FontWeight="Bold"
-                                       Foreground="#0F1115" />
-                            <TextBlock Text="OCRTranslate • Képernyőfeliratozó és fordító motor"
-                                       FontSize="12"
-                                       FontWeight="Normal"
-                                       Foreground="#6B7280"
-                                       Margin="0,2,0,0" />
-                        </StackPanel>
+                        <!-- Header Row -->
+                        <Grid Grid.Row="0" Margin="0,0,0,14" MouseDown="wSettings_MouseDown" Background="Transparent">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
 
-                        <!-- Right Action Pill + Window Controls -->
-                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
-                            <!-- + Test Subtitle Action Pill Button -->
-                            <Button Command="{Binding AppearanceVm.SendTestTextCommand}"
-                                    Cursor="Hand"
-                                    Style="{StaticResource PrimaryButton}"
-                                    Height="36"
-                                    Padding="16,0"
-                                    Margin="0,0,12,0"
-                                    ToolTip="Teszt felirat megjelenítése az ablakban">
+                            <!-- Clean Title & Description -->
+                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
                                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                    <materialDesign:PackIcon Kind="Plus" Width="16" Height="16" Foreground="#FFFFFF" Margin="0,0,6,0" VerticalAlignment="Center" />
-                                    <TextBlock Text="Teszt felirat" FontWeight="SemiBold" FontSize="12" Foreground="#FFFFFF" VerticalAlignment="Center" />
-                                </StackPanel>
-                            </Button>
-
-                            <!-- Minimize Window Button -->
-                            <Button Click="btnMinimize_Click"
-                                    Width="32"
-                                    Height="32"
-                                    Cursor="Hand"
-                                    Background="#FFFFFF"
-                                    BorderBrush="#E5E7EB"
-                                    BorderThickness="1"
-                                    Margin="0,0,6,0"
-                                    ToolTip="Kis méret">
-                                <Button.Template>
-                                    <ControlTemplate TargetType="{x:Type Button}">
-                                        <Border Background="{TemplateBinding Background}"
-                                                BorderBrush="{TemplateBinding BorderBrush}"
-                                                BorderThickness="{TemplateBinding BorderThickness}"
-                                                CornerRadius="16">
-                                            <materialDesign:PackIcon Kind="Minus" Width="16" Height="16" Foreground="#6B7280" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                        </Border>
-                                    </ControlTemplate>
-                                </Button.Template>
-                            </Button>
-
-                            <!-- Close Window Button -->
-                            <Button Click="btnClose_Click"
-                                    Width="32"
-                                    Height="32"
-                                    Cursor="Hand"
-                                    Background="#FFFFFF"
-                                    BorderBrush="#E5E7EB"
-                                    BorderThickness="1"
-                                    ToolTip="Bezárás">
-                                <Button.Template>
-                                    <ControlTemplate TargetType="{x:Type Button}">
-                                        <Border Background="{TemplateBinding Background}"
-                                                BorderBrush="{TemplateBinding BorderBrush}"
-                                                BorderThickness="{TemplateBinding BorderThickness}"
-                                                CornerRadius="16">
-                                            <materialDesign:PackIcon Kind="Close" Width="16" Height="16" Foreground="#6B7280" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                        </Border>
-                                    </ControlTemplate>
-                                </Button.Template>
-                            </Button>
-                        </StackPanel>
-                    </Grid>
-
-                    <!-- 2. TOP HERO BENTO CARD (Profile & Status Card from image) -->
-                    <Border Grid.Row="1"
-                            Margin="0,0,0,12"
-                            CornerRadius="22"
-                            Background="#FFFFFF"
-                            BorderBrush="#E5E7EB"
-                            BorderThickness="1"
-                            Padding="20,16">
-                        <Border.Effect>
-                            <DropShadowEffect BlurRadius="14" ShadowDepth="2" Direction="270" Color="#08000000" RenderingBias="Performance" />
-                        </Border.Effect>
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-
-                            <!-- Top Row: Engine Status & Tag -->
-                            <Grid Grid.Row="0" Margin="0,0,0,14">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-
-                                <!-- Pulse Badge Icon -->
-                                <Border Grid.Column="0" Width="40" Height="40" CornerRadius="14" Background="#F2F4F7" Margin="0,0,14,0">
-                                    <materialDesign:PackIcon Kind="Translate" Width="20" Height="20" Foreground="#0F1115" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                </Border>
-
-                                <!-- Title & Status Description -->
-                                <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                    <TextBlock Text="OCRTranslate Intelligens Fordítórendszer"
+                                    <TextBlock Text="bdstudio"
+                                               FontSize="18"
                                                FontWeight="Bold"
-                                               FontSize="15"
-                                               Foreground="#0F1115" />
-                                    <TextBlock Text="Valós idejű szövegfelismerés • DWM Blur üveghatás • Auto-hide 2.5 mp"
-                                               FontSize="12"
-                                               Foreground="#6B7280"
-                                               Margin="0,2,0,0" />
+                                               Foreground="#000000" />
+                                    <TextBlock Text=" / ocrtranslate"
+                                               FontSize="18"
+                                               FontWeight="Normal"
+                                               Foreground="#71717A" />
                                 </StackPanel>
+                                <TextBlock Text="Valós idejű képernyőfordítás és feliratozás"
+                                           FontSize="11"
+                                           Foreground="#A1A1AA"
+                                           Margin="0,2,0,0" />
+                            </StackPanel>
 
-                                <!-- Right Status Pill Chip -->
-                                <Border Grid.Column="2"
-                                        Background="#E8F5E9"
-                                        CornerRadius="14"
-                                        Padding="12,6"
-                                        VerticalAlignment="Center">
-                                    <StackPanel Orientation="Horizontal">
-                                        <Border Width="7" Height="7" CornerRadius="4" Background="#2E7D32" Margin="0,0,6,0" VerticalAlignment="Center" />
-                                        <TextBlock Text="v1.1.0 • Aktív" FontWeight="SemiBold" FontSize="11" Foreground="#2E7D32" VerticalAlignment="Center" />
-                                    </StackPanel>
-                                </Border>
-                            </Grid>
+                            <!-- Action Button + Window Buttons -->
+                            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                <Button Command="{Binding AppearanceVm.SendTestTextCommand}"
+                                        Cursor="Hand"
+                                        Style="{StaticResource PrimaryButton}"
+                                        Height="32"
+                                        Padding="14,0"
+                                        Margin="0,0,12,0"
+                                        Content="Teszt felirat"
+                                        ToolTip="Teszt felirat megjelenítése a feliratablakban" />
 
-                            <!-- Bottom Row: 5 Soft Metric Pills (Like Age, Height, Weight in image!) -->
-                            <UniformGrid Grid.Row="1" Rows="1" Columns="5" Margin="-4,0">
-                                <!-- Chip 1: Source Language -->
-                                <Border Margin="4,0" Background="#F4F5F7" CornerRadius="16" Padding="12,10">
-                                    <StackPanel HorizontalAlignment="Center">
-                                        <TextBlock Text="FORRÁSNYELV" FontSize="10" FontWeight="SemiBold" Foreground="#9CA3AF" HorizontalAlignment="Center" />
-                                        <TextBlock Text="Angol / Auto" FontSize="13" FontWeight="Bold" Foreground="#0F1115" Margin="0,3,0,0" HorizontalAlignment="Center" />
-                                    </StackPanel>
-                                </Border>
+                                <!-- Minimize Button -->
+                                <Button Click="btnMinimize_Click"
+                                        Width="30"
+                                        Height="30"
+                                        Cursor="Hand"
+                                        Background="#F4F5F7"
+                                        BorderBrush="#E5E7EB"
+                                        BorderThickness="1"
+                                        Margin="0,0,6,0"
+                                        ToolTip="Kis méret">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                                    CornerRadius="15">
+                                                <materialDesign:PackIcon Kind="Minus" Width="14" Height="14" Foreground="#000000" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
 
-                                <!-- Chip 2: Target Language -->
-                                <Border Margin="4,0" Background="#F4F5F7" CornerRadius="16" Padding="12,10">
-                                    <StackPanel HorizontalAlignment="Center">
-                                        <TextBlock Text="CÉLNYELV" FontSize="10" FontWeight="SemiBold" Foreground="#9CA3AF" HorizontalAlignment="Center" />
-                                        <TextBlock Text="Magyar" FontSize="13" FontWeight="Bold" Foreground="#0F1115" Margin="0,3,0,0" HorizontalAlignment="Center" />
-                                    </StackPanel>
-                                </Border>
-
-                                <!-- Chip 3: OCR Engine -->
-                                <Border Margin="4,0" Background="#F4F5F7" CornerRadius="16" Padding="12,10">
-                                    <StackPanel HorizontalAlignment="Center">
-                                        <TextBlock Text="OCR MOTOR" FontSize="10" FontWeight="SemiBold" Foreground="#9CA3AF" HorizontalAlignment="Center" />
-                                        <TextBlock Text="Windows OCR" FontSize="13" FontWeight="Bold" Foreground="#0F1115" Margin="0,3,0,0" HorizontalAlignment="Center" />
-                                    </StackPanel>
-                                </Border>
-
-                                <!-- Chip 4: Translator Engine -->
-                                <Border Margin="4,0" Background="#F4F5F7" CornerRadius="16" Padding="12,10">
-                                    <StackPanel HorizontalAlignment="Center">
-                                        <TextBlock Text="FORDÍTÓ" FontSize="10" FontWeight="SemiBold" Foreground="#9CA3AF" HorizontalAlignment="Center" />
-                                        <TextBlock Text="Google / DeepL" FontSize="13" FontWeight="Bold" Foreground="#0F1115" Margin="0,3,0,0" HorizontalAlignment="Center" />
-                                    </StackPanel>
-                                </Border>
-
-                                <!-- Chip 5: Auto-hide Delay -->
-                                <Border Margin="4,0" Background="#F4F5F7" CornerRadius="16" Padding="12,10">
-                                    <StackPanel HorizontalAlignment="Center">
-                                        <TextBlock Text="ELTŰNÉSI IDŐ" FontSize="10" FontWeight="SemiBold" Foreground="#9CA3AF" HorizontalAlignment="Center" />
-                                        <TextBlock Text="2.5 másodperc" FontSize="13" FontWeight="Bold" Foreground="#0F1115" Margin="0,3,0,0" HorizontalAlignment="Center" />
-                                    </StackPanel>
-                                </Border>
-                            </UniformGrid>
+                                <!-- Close Button -->
+                                <Button Click="btnClose_Click"
+                                        Width="30"
+                                        Height="30"
+                                        Cursor="Hand"
+                                        Background="#F4F5F7"
+                                        BorderBrush="#E5E7EB"
+                                        BorderThickness="1"
+                                        ToolTip="Bezárás">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="{x:Type Button}">
+                                            <Border Background="{TemplateBinding Background}"
+                                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                                    CornerRadius="15">
+                                                <materialDesign:PackIcon Kind="Close" Width="14" Height="14" Foreground="#000000" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                            </StackPanel>
                         </Grid>
-                    </Border>
 
-                    <!-- 3. LOWER BENTO GRID (Main Panel Left + Quick Controls Right) -->
-                    <Grid Grid.Row="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />     <!-- Left Card: Selected View Model -->
-                            <ColumnDefinition Width="280" />   <!-- Right Card: Quick Actions & Toggles -->
-                        </Grid.ColumnDefinitions>
-
-                        <!-- LEFT MAIN BENTO CARD: Active Settings Content -->
-                        <Border Grid.Column="0"
-                                Margin="0,0,10,0"
-                                CornerRadius="24"
-                                Background="#FFFFFF"
-                                BorderBrush="#E5E7EB"
-                                BorderThickness="1"
-                                Padding="22,18">
-                            <Border.Effect>
-                                <DropShadowEffect BlurRadius="14" ShadowDepth="2" Direction="270" Color="#08000000" RenderingBias="Performance" />
-                            </Border.Effect>
+                        <!-- Content Area -->
+                        <Border Grid.Row="1" BorderBrush="#F0F1F3" BorderThickness="0,1,0,0" Padding="0,14,0,0">
                             <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                                <ContentControl Content="{Binding SelectedViewModel}" />
+                                <ContentControl Content="{Binding SelectedViewModel}" Margin="0,0,10,0" />
                             </ScrollViewer>
                         </Border>
-
-                        <!-- RIGHT SIDE BENTO COLUMN: Quick Controls (Milestones & Targets in image!) -->
-                        <Grid Grid.Column="1">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-
-                            <!-- Card 3A: Quick Toggles (Like Targets / Switches in image) -->
-                            <Border Grid.Row="0"
-                                    Margin="0,0,0,10"
-                                    CornerRadius="22"
-                                    Background="#FFFFFF"
-                                    BorderBrush="#E5E7EB"
-                                    BorderThickness="1"
-                                    Padding="18,16">
-                                <Border.Effect>
-                                    <DropShadowEffect BlurRadius="12" ShadowDepth="2" Direction="270" Color="#08000000" RenderingBias="Performance" />
-                                </Border.Effect>
-                                <StackPanel>
-                                    <TextBlock Text="Gyorsfunkciók" FontWeight="Bold" FontSize="14" Foreground="#0F1115" />
-                                    <TextBlock Text="Azonnali vezérlés" FontSize="11" Foreground="#9CA3AF" Margin="0,1,0,12" />
-
-                                    <!-- Toggle 1: Background Blur -->
-                                    <Grid Margin="0,0,0,12">
-                                        <StackPanel VerticalAlignment="Center">
-                                            <TextBlock Text="Háttér elmosás (Blur)" FontSize="12" FontWeight="SemiBold" Foreground="#0F1115" />
-                                            <TextBlock Text="DWM üveghatás" FontSize="10" Foreground="#9CA3AF" />
-                                        </StackPanel>
-                                        <ToggleButton HorizontalAlignment="Right"
-                                                      IsChecked="{Binding AppearanceVm.Model.BlurEnabled}"
-                                                      Style="{StaticResource PrimaryToggleButton}" />
-                                    </Grid>
-
-                                    <!-- Toggle 2: Auto-hide -->
-                                    <Grid Margin="0,0,0,12">
-                                        <StackPanel VerticalAlignment="Center">
-                                            <TextBlock Text="Auto-eltűnés" FontSize="12" FontWeight="SemiBold" Foreground="#0F1115" />
-                                            <TextBlock Text="2.5s tétlenség után" FontSize="10" Foreground="#9CA3AF" />
-                                        </StackPanel>
-                                        <ToggleButton HorizontalAlignment="Right"
-                                                      IsChecked="{Binding AppearanceVm.Model.AutoHideEnabled}"
-                                                      Style="{StaticResource PrimaryToggleButton}" />
-                                    </Grid>
-
-                                    <!-- Toggle 3: Exclude from capture -->
-                                    <Grid Margin="0,0,0,12">
-                                        <StackPanel VerticalAlignment="Center">
-                                            <TextBlock Text="Felvételből rejtés" FontSize="12" FontWeight="SemiBold" Foreground="#0F1115" />
-                                            <TextBlock Text="Láthatatlan képernyőképen" FontSize="10" Foreground="#9CA3AF" />
-                                        </StackPanel>
-                                        <ToggleButton HorizontalAlignment="Right"
-                                                      IsChecked="{Binding AppearanceVm.Model.ExcludeFromCaptue}"
-                                                      Style="{StaticResource PrimaryToggleButton}" />
-                                    </Grid>
-
-                                    <!-- Toggle 4: Show original -->
-                                    <Grid>
-                                        <StackPanel VerticalAlignment="Center">
-                                            <TextBlock Text="Eredeti szöveg" FontSize="12" FontWeight="SemiBold" Foreground="#0F1115" />
-                                            <TextBlock Text="Fordítás közben" FontSize="10" Foreground="#9CA3AF" />
-                                        </StackPanel>
-                                        <ToggleButton HorizontalAlignment="Right"
-                                                      IsChecked="{Binding AppearanceVm.Model.ShowOriginalWhileTranslating}"
-                                                      Style="{StaticResource PrimaryToggleButton}" />
-                                    </Grid>
-                                </StackPanel>
-                            </Border>
-
-                            <!-- Card 3B: Live Opacity & Preview Card -->
-                            <Border Grid.Row="1"
-                                    CornerRadius="22"
-                                    Background="#FFFFFF"
-                                    BorderBrush="#E5E7EB"
-                                    BorderThickness="1"
-                                    Padding="18,16">
-                                <Border.Effect>
-                                    <DropShadowEffect BlurRadius="12" ShadowDepth="2" Direction="270" Color="#08000000" RenderingBias="Performance" />
-                                </Border.Effect>
-                                <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="*" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-
-                                    <TextBlock Grid.Row="0" Text="Ablak átlátszósága" FontWeight="Bold" FontSize="14" Foreground="#0F1115" />
-                                    <TextBlock Grid.Row="0" Text="Élő szabályozás" FontSize="11" Foreground="#9CA3AF" Margin="0,18,0,10" />
-
-                                    <!-- Opacity Slider -->
-                                    <StackPanel Grid.Row="1" Margin="0,0,0,12">
-                                        <Slider Width="240"
-                                                HorizontalAlignment="Left"
-                                                Style="{DynamicResource MaterialDesignSlider}"
-                                                Value="{Binding AppearanceVm.Model.BackgroundOpacity, Converter={StaticResource SliderPercentValueConverter}, UpdateSourceTrigger=PropertyChanged}" />
-                                    </StackPanel>
-
-                                    <!-- Mini Subtitle Glass Preview Box -->
-                                    <Border Grid.Row="2"
-                                            Background="#EAECEF"
-                                            CornerRadius="14"
-                                            Padding="10"
-                                            Margin="0,0,0,10">
-                                        <Border CornerRadius="8"
-                                                Background="#121418"
-                                                Padding="10,8"
-                                                BorderBrush="#44FFFFFF"
-                                                BorderThickness="1">
-                                            <TextBlock Text="Példa felirat: Szia világ!"
-                                                       Foreground="#FFFFFF"
-                                                       FontSize="12"
-                                                       FontWeight="SemiBold"
-                                                       HorizontalAlignment="Center"
-                                                       VerticalAlignment="Center" />
-                                        </Border>
-                                    </Border>
-
-                                    <!-- Test Subtitle Button -->
-                                    <Button Grid.Row="3"
-                                            Command="{Binding AppearanceVm.SendTestTextCommand}"
-                                            Style="{StaticResource PrimaryButton}"
-                                            HorizontalAlignment="Stretch"
-                                            Height="38"
-                                            Content="Teszt felirat küldése" />
-                                </Grid>
-                            </Border>
-                        </Grid>
                     </Grid>
-                </Grid>
+                </Border>
             </Grid>
         </materialDesign:DialogHost>
     </Border>

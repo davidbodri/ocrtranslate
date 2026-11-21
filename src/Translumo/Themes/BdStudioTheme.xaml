@@ -12,15 +12,15 @@
     <!-- Fonts -->
     <FontFamily x:Key="MaterialDesignFont">Segoe UI Variable, Segoe UI, -apple-system, BlinkMacSystemFont, Arial, sans-serif</FontFamily>
 
-    <!-- Modern Soft Bento Palette -->
-    <Color x:Key="BdBackground">#EAECEF</Color>
+    <!-- Minimalist Monochrome Palette -->
+    <Color x:Key="BdBackground">#F2F3F5</Color>
     <Color x:Key="BdPanel">#FFFFFF</Color>
-    <Color x:Key="BdPanelHover">#F7F8FA</Color>
-    <Color x:Key="BdInput">#F2F4F7</Color>
+    <Color x:Key="BdPanelHover">#F8F9FA</Color>
+    <Color x:Key="BdInput">#F4F5F7</Color>
     <Color x:Key="BdBorder">#E5E7EB</Color>
-    <Color x:Key="BdTextPrimary">#0F1115</Color>
-    <Color x:Key="BdTextSecondary">#6B7280</Color>
-    <Color x:Key="BdTextDisabled">#9CA3AF</Color>
+    <Color x:Key="BdTextPrimary">#000000</Color>
+    <Color x:Key="BdTextSecondary">#71717A</Color>
+    <Color x:Key="BdTextDisabled">#A1A1AA</Color>
 
     <SolidColorBrush x:Key="BdBackgroundBrush" Color="{StaticResource BdBackground}" />
     <SolidColorBrush x:Key="BdPanelBrush" Color="{StaticResource BdPanel}" />
@@ -41,25 +41,25 @@
     <SolidColorBrush x:Key="MaterialDesignTextFieldBoxBackground" Color="{StaticResource BdInput}" />
     <SolidColorBrush x:Key="MaterialDesignTextFieldBoxHoverBackground" Color="{StaticResource BdPanelHover}" />
     <SolidColorBrush x:Key="MaterialDesignFlatButtonClick" Color="#E5E7EB" />
-    <SolidColorBrush x:Key="MaterialDesignFlatButtonRipple" Color="#D1D5DB" />
+    <SolidColorBrush x:Key="MaterialDesignFlatButtonRipple" Color="#D4D4D8" />
 
-    <!-- Translumo Legacy Brush Mapping to Clean Bento Theme -->
-    <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#F2F4F7" />
-    <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#0F1115" />
-    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#0F1115" />
+    <!-- Translumo Legacy Brush Mapping to Clean Monochrome Theme -->
+    <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#F4F5F7" />
+    <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#000000" />
+    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#000000" />
     <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#FFFFFF" />
-    <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#1F2937" />
+    <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#27272A" />
     <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#FFFFFF" />
 
     <SolidColorBrush x:Key="SecondaryHueLightBrush" Color="#F8F9FA" />
-    <SolidColorBrush x:Key="SecondaryHueLightForegroundBrush" Color="#0F1115" />
+    <SolidColorBrush x:Key="SecondaryHueLightForegroundBrush" Color="#000000" />
     <SolidColorBrush x:Key="SecondaryHueMidBrush" Color="#E5E7EB" />
-    <SolidColorBrush x:Key="SecondaryHueMidForegroundBrush" Color="#0F1115" />
-    <SolidColorBrush x:Key="SecondaryHueDarkBrush" Color="#6B7280" />
-    <SolidColorBrush x:Key="SecondaryHueDarkForegroundBrush" Color="#0F1115" />
+    <SolidColorBrush x:Key="SecondaryHueMidForegroundBrush" Color="#000000" />
+    <SolidColorBrush x:Key="SecondaryHueDarkBrush" Color="#71717A" />
+    <SolidColorBrush x:Key="SecondaryHueDarkForegroundBrush" Color="#000000" />
 
     <SolidColorBrush x:Key="ChromeBackgroundBrush" Color="Transparent" />
-    <SolidColorBrush x:Key="ChromeForegroundBrush" Color="#0F1115" />
+    <SolidColorBrush x:Key="ChromeForegroundBrush" Color="#000000" />
     <SolidColorBrush x:Key="ChromeSelectionBrush" Color="#FFFFFF" />
     <SolidColorBrush x:Key="HoverBackgroundBrush" Color="{StaticResource BdPanelHover}" />
     <SolidColorBrush x:Key="ErrorBrush" Color="#EF4444" />
@@ -67,9 +67,9 @@
 
     <!-- Metrics -->
     <CornerRadius x:Key="ControlCornerRadius">12</CornerRadius>
-    <CornerRadius x:Key="SurfaceCornerRadius">22</CornerRadius>
+    <CornerRadius x:Key="SurfaceCornerRadius">20</CornerRadius>
 
-    <!-- Custom Modern Light Bento ScrollBar -->
+    <!-- Custom Modern Light ScrollBar -->
     <Style TargetType="{x:Type ScrollBar}">
         <Setter Property="Background" Value="Transparent" />
         <Setter Property="Foreground" Value="#CBD5E1" />
@@ -83,10 +83,10 @@
                                 <Thumb>
                                     <Thumb.Template>
                                         <ControlTemplate TargetType="{x:Type Thumb}">
-                                            <Border Background="#D1D5DB" CornerRadius="3" Margin="0" />
+                                            <Border Background="#D4D4D8" CornerRadius="3" Margin="0" />
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="true">
-                                                    <Setter Property="Background" Value="#9CA3AF" />
+                                                    <Setter Property="Background" Value="#A1A1AA" />
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
