@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -186,7 +188,21 @@ namespace Translumo.MVVM.ViewModels
             _hasUpdates = await _updateManager.CheckNewVersionAsync();
             if (_hasUpdates)
             {
-                Model.AddChatItem(LocalizationManager.GetValue("Str.NewVersion"), TextTypes.Info);
+                var verText = _updateManager.NewVersion != null ? $" (v{_updateManager.NewVersion})" : "";
+                Model.AddChatItem($"{LocalizationManager.GetValue("Str.NewVersion")}{verText}", TextTypes.Info);
+
+                var msg = $"Új BDSTUDIO frissítés érhető el{verText}!\n\nSzeretnéd most megnyitni a letöltési oldalt a frissítéshez?";
+                var result = MessageBox.Show(msg, "BDSTUDIO - Frissítés elérhető", MessageBoxButton.YesNo, MessageBoxImage.Information);
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        Process.Start(new ProcessStartInfo("https://github.com/davidbodri/ocrtranslate/releases/latest") { UseShellExecute = true });
+                    }
+                    catch
+                    {
+                    }
+                }
             }
         }
 

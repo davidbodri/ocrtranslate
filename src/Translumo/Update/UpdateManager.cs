@@ -17,6 +17,8 @@ namespace Translumo.Update
         }
 
 
+        public Version NewVersion { get; private set; }
+
         public async Task<bool> CheckNewVersionAsync()
         {
             try
@@ -27,7 +29,13 @@ namespace Translumo.Update
                     return false;
                 }
 
-                return lastVersion > Global.GetVersion();
+                if (lastVersion > Global.GetVersion())
+                {
+                    NewVersion = lastVersion;
+                    return true;
+                }
+
+                return false;
             }
             catch (Exception ex)
             {

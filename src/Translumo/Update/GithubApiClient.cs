@@ -29,16 +29,29 @@ namespace Translumo.Update
         public async Task<Version> GetLastVersionAsync()
         {
             var releases = await GetReleasesAsync();
-            if (!releases.Any())
+            if (releases == null || !releases.Any())
             {
                 return null;
             }
 
-            var versionReplacer = new Regex(@"v[\. ]*");
+            var validVersions = new System.Collections.Generic.List<Version>();
+            foreach (var release in releases)
+            {
+                if (release.Draft || string.IsNullOrEmpty(release.TagName))
+                {
+                    continue;
+                }
 
-            return releases
-                .Select(release => new Version(versionReplacer.Replace(release.TagName, string.Empty)))
-                .Max();
+                var cleanTag = release.TagName.TrimStart('v', 'V', ' ', '.');
+                cleanTag = cleanTag.Split('-', '+')[0].Trim();
+
+                if (Version.TryParse(cleanTag, out var version))
+                {
+                    validVersions.Add(version);
+                }
+            }
+
+            return validVersions.Any() ? validVersions.Max() : null;
         }
 
         private async Task<ReleaseItemResponse[]> GetReleasesAsync()

@@ -1,6 +1,6 @@
 ; Inno Setup Script for bdstudio.hu/ocrtranslate
 #define MyAppName "ocrtranslate"
-#define MyAppVersion "1.1.0"
+#define MyAppVersion "1.2.0"
 #define MyAppPublisher "bdstudio.hu"
 #define MyAppURL "https://bdstudio.hu"
 #define MyAppExeName "ocrtranslate.exe"
@@ -12,7 +12,7 @@ AppVersion={#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
 AppSupportURL={#MyAppURL}
-AppUpdatesURL={#MyAppURL}
+AppUpdatesURL=https://github.com/davidbodri/ocrtranslate/releases
 DefaultDirName={autopf}\{#MyAppName}
 DefaultGroupName={#MyAppPublisher}\{#MyAppName}
 AllowNoIcons=yes

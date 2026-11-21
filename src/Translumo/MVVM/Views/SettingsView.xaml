@@ -89,7 +89,7 @@
 
                             <!-- Clean Title: BDSTUDIO. -->
                             <TextBlock Grid.Column="0"
-                                       Text="BDSTUDIO."
+                                       Text="BDSTUDIO.HU"
                                        FontSize="22"
                                        FontWeight="Black"
                                        Foreground="#000000"

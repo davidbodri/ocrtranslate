@@ -30,7 +30,32 @@ namespace Translumo.Infrastructure.Constants
 
         public static Version GetVersion()
         {
-            return new Version(FileVersionInfo.GetVersionInfo(Assembly.GetEntryAssembly().Location).ProductVersion);
+            try
+            {
+                var entryAssembly = Assembly.GetEntryAssembly();
+                if (entryAssembly != null)
+                {
+                    var rawVersion = FileVersionInfo.GetVersionInfo(entryAssembly.Location).ProductVersion;
+                    if (!string.IsNullOrEmpty(rawVersion))
+                    {
+                        var cleanVersion = rawVersion.Split('+', '-')[0].Trim();
+                        if (Version.TryParse(cleanVersion, out var ver))
+                        {
+                            return ver;
+                        }
+                    }
+
+                    if (entryAssembly.GetName().Version != null)
+                    {
+                        return entryAssembly.GetName().Version;
+                    }
+                }
+            }
+            catch
+            {
+            }
+
+            return new Version(1, 2, 0);
         }
     }
 }
