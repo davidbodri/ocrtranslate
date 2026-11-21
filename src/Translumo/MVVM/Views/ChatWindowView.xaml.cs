@@ -419,26 +419,14 @@ namespace Translumo.MVVM.Views
             if (_configuration.BlurEnabled)
             {
                 bool perf = _configuration.PerformanceBlur;
-                if (WindowBlurHelper.Enable(this, _configuration.BackgroundColor, _configuration.BackgroundOpacity, perf))
-                {
-                    this.Background = Brushes.Transparent;
-                }
-                else
-                {
-                    this.Background = new SolidColorBrush(_configuration.BackgroundColor)
-                    {
-                        Opacity = _configuration.BackgroundOpacity
-                    };
-                }
+                WindowBlurHelper.Enable(this, _configuration.BackgroundColor, _configuration.BackgroundOpacity, perf);
             }
             else
             {
                 WindowBlurHelper.Disable(this);
-                this.Background = new SolidColorBrush(_configuration.BackgroundColor)
-                {
-                    Opacity = _configuration.BackgroundOpacity
-                };
             }
+
+            this.Background = Brushes.Transparent;
         }
 
         private void Window_SourceInitialized(object sender, EventArgs e)

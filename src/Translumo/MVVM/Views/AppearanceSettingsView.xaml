@@ -196,7 +196,7 @@
                     Width="220"
                     HorizontalAlignment="Left"
                     Style="{DynamicResource MaterialDesignSlider}"
-                    Value="{Binding Model.BackgroundOpacity, Converter={StaticResource SliderPercentValueConverter}}" />
+                    Value="{Binding Model.BackgroundOpacity, Converter={StaticResource SliderPercentValueConverter}, UpdateSourceTrigger=PropertyChanged}" />
                 <Button
                     Margin="0,24,0,0"
                     HorizontalAlignment="Left"

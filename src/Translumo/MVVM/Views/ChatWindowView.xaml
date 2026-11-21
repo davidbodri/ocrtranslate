@@ -17,6 +17,7 @@
     Activated="Window_Activated"
     AllowsTransparency="True"
     BorderThickness="0"
+    Background="Transparent"
     Deactivated="Window_Deactivated"
     ResizeMode="CanResizeWithGrip"
     ShowInTaskbar="False"
@@ -29,9 +30,6 @@
         <common:BoldFontConverter x:Key="boldFontConverter" />
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Window.Resources>
-    <Window.Background>
-        <SolidColorBrush Opacity="{Binding Model.Configuration.BackgroundOpacity}" Color="{Binding Model.Configuration.BackgroundColor}" />
-    </Window.Background>
     <b:Interaction.Triggers>
         <b:EventTrigger EventName="Loaded">
             <b:InvokeCommandAction Command="{Binding LoadedCommand}" />
@@ -40,17 +38,100 @@
 
     <Grid>
         <controls:TrayControl ChatOpeningCommand="{Binding ShowHideChatCommand}" SettingsOpeningCommand="{Binding ShowHideSettingsCommand}" />
-        <RichTextBox
-            x:Name="rtbChat"
-            Padding="10"
-            Background="#03000000"
-            BorderThickness="0,0,0,0"
-            Focusable="false"
-            FontSize="15"
-            IsReadOnly="True"
-            MouseDown="rtbChat_MouseDown">
-            <FlowDocument />
-        </RichTextBox>
+
+        <!-- Glossy Glass Container -->
+        <Border
+            x:Name="borderContainer"
+            Margin="2"
+            CornerRadius="8"
+            ClipToBounds="True">
+            <!-- 1. Outer Glass Edge (Light specular highlight at top, dark border at bottom) -->
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Offset="0.0" Color="#66FFFFFF" />
+                    <GradientStop Offset="0.3" Color="#25FFFFFF" />
+                    <GradientStop Offset="0.7" Color="#10FFFFFF" />
+                    <GradientStop Offset="1.0" Color="#40000000" />
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.BorderThickness>1</Border.BorderThickness>
+
+            <Grid>
+                <!-- 2. Dark Glass / Smoke Background layer, bound directly to BackgroundOpacity and BackgroundColor -->
+                <Border
+                    x:Name="borderBackground"
+                    CornerRadius="7"
+                    Opacity="{Binding Model.Configuration.BackgroundOpacity}">
+                    <Border.Background>
+                        <SolidColorBrush Color="{Binding Model.Configuration.BackgroundColor}" />
+                    </Border.Background>
+                </Border>
+
+                <!-- 2b. Subtle vertical depth shading, also scaled with BackgroundOpacity -->
+                <Border
+                    x:Name="borderDepth"
+                    CornerRadius="7"
+                    IsHitTestVisible="False"
+                    Opacity="{Binding Model.Configuration.BackgroundOpacity}">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Offset="0.0" Color="#25FFFFFF" />
+                            <GradientStop Offset="0.4" Color="#00000000" />
+                            <GradientStop Offset="1.0" Color="#45000000" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+
+                <!-- 3. Glossy Specular Reflection / Top Sheen -->
+                <Border
+                    VerticalAlignment="Top"
+                    Height="24"
+                    CornerRadius="7,7,0,0"
+                    IsHitTestVisible="False">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Offset="0.0" Color="#35FFFFFF" />
+                            <GradientStop Offset="0.4" Color="#12FFFFFF" />
+                            <GradientStop Offset="1.0" Color="#00FFFFFF" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+
+                <!-- 4. Subtle Specular Highlight Line at the very top edge -->
+                <Border
+                    VerticalAlignment="Top"
+                    Height="1"
+                    Margin="6,0,6,0"
+                    IsHitTestVisible="False">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Offset="0.0" Color="#00FFFFFF" />
+                            <GradientStop Offset="0.25" Color="#50FFFFFF" />
+                            <GradientStop Offset="0.5" Color="#85FFFFFF" />
+                            <GradientStop Offset="0.75" Color="#50FFFFFF" />
+                            <GradientStop Offset="1.0" Color="#00FFFFFF" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+
+                <!-- 5. Subtitle Text Box with drop shadow for supreme legibility -->
+                <RichTextBox
+                    x:Name="rtbChat"
+                    Padding="12,8"
+                    Background="#01000000"
+                    BorderThickness="0"
+                    Focusable="false"
+                    FontSize="15"
+                    IsReadOnly="True"
+                    MouseDown="rtbChat_MouseDown">
+                    <RichTextBox.Effect>
+                        <DropShadowEffect BlurRadius="3" ShadowDepth="1" Direction="315" Color="#E0000000" RenderingBias="Performance" />
+                    </RichTextBox.Effect>
+                    <FlowDocument />
+                </RichTextBox>
+            </Grid>
+        </Border>
+
         <TextBlock
             Name="fontTextBlockInstance"
             LineHeight="{Binding Model.Configuration.LineSpacing}"
