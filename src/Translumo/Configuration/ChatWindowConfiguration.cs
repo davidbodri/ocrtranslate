@@ -310,9 +310,9 @@ namespace Translumo.Configuration
             BackgroundOpacity = 0.65f,
             BlurEnabled = true,
             AutoHideEnabled = true,
-            HideDelayMs = 3000,
-            IdleHideMs = 3000,
-            LineHoldMs = 3000,
+            HideDelayMs = 2500,
+            IdleHideMs = 2500,
+            LineHoldMs = 2500,
             KeepEmptySlotSpace = false,
             SplitBySentenceFallback = true,
             EmptyScansBeforeHide = 6,
@@ -343,9 +343,9 @@ namespace Translumo.Configuration
         private float _backgroundOpacity = 0.65f;
         private bool _blurEnabled = true;
         private bool _autoHideEnabled = true;
-        private int _hideDelayMs = 3000;
-        private int _idleHideMs = 3000;
-        private int _lineHoldMs = 3000;
+        private int _hideDelayMs = 2500;
+        private int _idleHideMs = 2500;
+        private int _lineHoldMs = 2500;
         private bool _keepEmptySlotSpace = false;
         private bool _splitBySentenceFallback = true;
         private int _emptyScansBeforeHide = 6;

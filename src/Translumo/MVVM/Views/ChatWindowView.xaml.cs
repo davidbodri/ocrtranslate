@@ -72,16 +72,37 @@ namespace Translumo.MVVM.Views
                     return;
                 }
 
-                var viewModel = DataContext as ChatWindowViewModel;
-                if (e.TextType == TextTypes.Info && viewModel?.Model?.TranslationIsRunning != true)
+                if (e.TextType == TextTypes.Info || e.TextType == TextTypes.Error)
                 {
+                    ShowBlackBar();
+                    AppendTextBlock(e.Text, e.TextType);
+                    ResetHideTimer();
                     return;
                 }
+
                 DisplaySubtitle(e.Text, e.TextType);
             }
+            else
             {
                 AppendTextBlock(e.Text, e.TextType);
             }
+        }
+
+        private void ShowBlackBar()
+        {
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(ShowBlackBar);
+                return;
+            }
+
+            if (_isFadingOut)
+            {
+                this.BeginAnimation(UIElement.OpacityProperty, null);
+                _isFadingOut = false;
+            }
+            UpdateBlur();
+            this.Opacity = 1.0;
         }
 
         private void DisplaySubtitle(string text, TextTypes textType)
@@ -104,12 +125,7 @@ namespace Translumo.MVVM.Views
                 return;
             }
 
-            if (_isFadingOut)
-            {
-                this.BeginAnimation(UIElement.OpacityProperty, null);
-                _isFadingOut = false;
-            }
-            this.Opacity = 1.0;
+            ShowBlackBar();
 
             RenderTrackedLines(trackedLines, textType);
             ResetHideTimer();
@@ -187,12 +203,7 @@ namespace Translumo.MVVM.Views
                     _lineTracker?.UpdateTranslation(e.Original, e.Translated);
                     if (_lineTracker != null && _lineTracker.HasActiveLines)
                     {
-                        if (_isFadingOut)
-                        {
-                            this.BeginAnimation(UIElement.OpacityProperty, null);
-                            _isFadingOut = false;
-                        }
-                        this.Opacity = 1.0;
+                        ShowBlackBar();
                         RenderTrackedLines(_lineTracker.GetCurrentLines(), TextTypes.Translation);
                         ResetHideTimer();
                     }
@@ -215,19 +226,19 @@ namespace Translumo.MVVM.Views
                 return;
             }
 
-            if (_isFadingOut)
-            {
-                this.BeginAnimation(UIElement.OpacityProperty, null);
-                _isFadingOut = false;
-            }
-            this.Opacity = 1.0;
-
+            ShowBlackBar();
             RenderTrackedLines(trackedLines, TextTypes.Translation);
             ResetHideTimer();
         }
 
         private void ResetHideTimer()
         {
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(ResetHideTimer);
+                return;
+            }
+
             if (_hideTimer == null || _configuration == null)
             {
                 return;
@@ -248,12 +259,7 @@ namespace Translumo.MVVM.Views
                 return;
             }
 
-            if (_lineTracker != null && _lineTracker.HasActiveLines)
-            {
-                ResetHideTimer();
-                return;
-            }
-
+            _lineTracker?.Clear();
             StartFadeOut();
         }
 
@@ -271,6 +277,8 @@ namespace Translumo.MVVM.Views
             _hideTimer?.Stop();
             _lineTracker?.Clear();
             rtbChat.Document.Blocks.Clear();
+            WindowBlurHelper.Disable(this);
+            this.Background = Brushes.Transparent;
         }
 
         private void StartFadeOut()
@@ -280,7 +288,7 @@ namespace Translumo.MVVM.Views
                 return;
             }
 
-            int fadeMs = _configuration?.FadeOutMs ?? 150;
+            int fadeMs = _configuration?.FadeOutMs ?? 200;
             if (fadeMs <= 0)
             {
                 HideImmediately();
@@ -304,6 +312,8 @@ namespace Translumo.MVVM.Views
                     _isFadingOut = false;
                     _lineTracker?.Clear();
                     rtbChat.Document.Blocks.Clear();
+                    WindowBlurHelper.Disable(this);
+                    this.Background = Brushes.Transparent;
                 }
             };
 
@@ -325,6 +335,12 @@ namespace Translumo.MVVM.Views
             if (string.IsNullOrEmpty(text))
                 return;
 
+            if (!Dispatcher.CheckAccess())
+            {
+                Dispatcher.Invoke(() => AppendTextBlock(text, textType));
+                return;
+            }
+
             rtbChat.CaretPosition = rtbChat.CaretPosition.DocumentEnd;
 
             var paragraph = new Paragraph { LineHeight = fontTextBlockInstance.LineHeight, TextAlignment = fontTextBlockInstance.TextAlignment};
@@ -342,18 +358,12 @@ namespace Translumo.MVVM.Views
                 if (_configuration?.AutoHideEnabled == true)
                 {
                     _hideTimer?.Stop();
-                    if (_isFadingOut)
-                    {
-                        this.BeginAnimation(UIElement.OpacityProperty, null);
-                        this.Opacity = 1.0;
-                        _isFadingOut = false;
-                        UpdateBlur();
-                    }
+                    ShowBlackBar();
                 }
 
                 this.DragMove();
 
-                if (_configuration?.AutoHideEnabled == true && rtbChat.Document.Blocks.Count > 0)
+                if (_configuration?.AutoHideEnabled == true)
                 {
                     ResetHideTimer();
                 }
@@ -390,9 +400,10 @@ namespace Translumo.MVVM.Views
                 _hideTimer.Tick += HideTimerOnTick;
 
                 UpdateBlur();
+                this.Opacity = 1.0;
                 if (_configuration.AutoHideEnabled)
                 {
-                    this.Opacity = 0.0;
+                    ResetHideTimer();
                 }
             }
         }
@@ -446,7 +457,7 @@ namespace Translumo.MVVM.Views
                     }
                     else if (rtbChat.Document.Blocks.Count == 0)
                     {
-                        this.Opacity = 0.0;
+                        HideImmediately();
                     }
                 });
             }

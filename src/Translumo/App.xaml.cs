@@ -138,6 +138,9 @@ namespace Translumo
             {
                 chatConfig.ShowOriginalWhileTranslating = false;
                 chatConfig.ExcludeFromCaptue = false;
+                chatConfig.AutoHideEnabled = true;
+                chatConfig.IdleHideMs = 2500;
+                chatConfig.HideDelayMs = 2500;
             }
 
             var systemConfiguration = _serviceProvider.GetService<SystemConfiguration>();
