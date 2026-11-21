@@ -1,0 +1,155 @@
+<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <!--  Generic  -->
+    <system:String x:Key="Str.Login">Bejelentkezés</system:String>
+    <system:String x:Key="Str.Password">Jelszó</system:String>
+    <system:String x:Key="Str.ExitConfirmation" xml:space="preserve">Biztosan be akarja zárni az alkalmazást?&#13;A beállítások ablak elrejtéséhez használhatja a kis méret gombot (az alkalmazás továbbra is elérhető marad a tálcáról).</system:String>
+    <system:String x:Key="Str.ExitConfirmationCaption">Kilépés megerősítése</system:String>
+    <system:String x:Key="Str.NewVersion">Új verzió érhető el!</system:String>
+
+    <!--  Titles  -->
+    <system:String x:Key="Str.Title.SettingWindow" xml:space="preserve">Beállítások - bdstudio.hu/ocrtranslate</system:String>
+
+    <!--  Tray  -->
+    <system:String x:Key="Str.Tray.ShowHideSettings">Beállítások megjelenítése/elrejtése</system:String>
+    <system:String x:Key="Str.Tray.ShowHideTranslation">Fordítás megjelenítése/elrejtése</system:String>
+    <system:String x:Key="Str.Tray.Exit">Kilépés</system:String>
+
+    <!--  Chat  -->
+    <system:String x:Key="Str.Chat.SettingsOpened">Zárja be a beállításokat a fordítás indításához</system:String>
+    <system:String x:Key="Str.Chat.WindowLocked">A feliratablak rögzítve lett</system:String>
+    <system:String x:Key="Str.Chat.WindowUnlocked">A feliratablak rögzítése feloldva</system:String>
+
+    <!--  Language settings  -->
+    <system:String x:Key="Str.LangSettings.SourceLang">Forrásnyelv</system:String>
+    <system:String x:Key="Str.LangSettings.TranslationLang">Célnyelv</system:String>
+    <system:String x:Key="Str.LangSettings.YandexApiKey">Yandex API kulcs</system:String>
+    <system:String x:Key="Str.LangSettings.DeeplApiKey">DeepL API kulcs</system:String>
+    <system:String x:Key="Str.LangSettings.Translator">Fordító motor</system:String>
+    <system:String x:Key="Str.LangSettings.TtsSystem">Szövegfelolvasó rendszer (TTS)</system:String>
+
+    <!--  Hotkeys descriptions  -->
+    <system:String x:Key="Str.Hotkeys.ChatVisibility">Feliratablak megjelenítése/elrejtése</system:String>
+    <system:String x:Key="Str.Hotkeys.SettingsVisibility">Beállítások ablak megnyitása/bezárása</system:String>
+    <system:String x:Key="Str.Hotkeys.SelectArea">Képernyőfelismerési terület kijelölése</system:String>
+    <system:String x:Key="Str.Hotkeys.OnOffTranslation">Fordítás be-/kikapcsolása</system:String>
+    <system:String x:Key="Str.Hotkeys.ShowSelectArea">Kijelölt felismerési terület megjelenítése</system:String>
+    <system:String x:Key="Str.Hotkeys.OnceTranslate">Terület kijelölése és egyszeri fordítás</system:String>
+    <system:String x:Key="Str.Hotkeys.WindowChangeStyle">Feliratablak zárolása/feloldása</system:String>
+    <system:String x:Key="Str.Hotkeys.ExitApp">Alkalmazás bezárása teljesen</system:String>
+    <system:String x:Key="Str.Hotkeys.SettingsShowHelp">Nyomja meg a(z) '{0}' billentyűt a beállításokhoz</system:String>
+    <system:String x:Key="Str.Hotkeys.SelectAreaHelp">Nyomja meg a(z) '{0}' billentyűt a terület kijelöléséhez</system:String>
+    <system:String x:Key="Str.Hotkeys.OnTranslationHelp">Nyomja meg a(z) '{0}' billentyűt a fordítás indításához</system:String>
+    <system:String x:Key="Str.Hotkeys.ExitAppHelp">Nyomja meg a(z) '{0}' billentyűt az alkalmazás bezárásához</system:String>
+    <system:String x:Key="Str.Hotkeys.GeneralHelp">Az alkalmazás vezérléséhez használja a tálca menüt vagy az alábbi billentyűparancsokat:</system:String>
+
+    <!--  Appearance settings  -->
+    <system:String x:Key="Str.AppearanceSettings.WindowColor">Ablak színe</system:String>
+    <system:String x:Key="Str.AppearanceSettings.FontColor">Betűszín</system:String>
+    <system:String x:Key="Str.AppearanceSettings.FontSize">Betűméret</system:String>
+    <system:String x:Key="Str.AppearanceSettings.Bold">Félkövér</system:String>
+    <system:String x:Key="Str.AppearanceSettings.ExcludeFromCaptue">Kizárás a rögzítésből</system:String>
+    <system:String x:Key="Str.AppearanceSettings.LineSpacing">Sorköz</system:String>
+    <system:String x:Key="Str.AppearanceSettings.WindowOpacity">Ablak átlátszósága</system:String>
+    <system:String x:Key="Str.AppearanceSettings.FontSizePanelCaption">Betűméret — módosítás</system:String>
+    <system:String x:Key="Str.AppearanceSettings.FontColorPanelCaption">Betűszín — módosítás</system:String>
+    <system:String x:Key="Str.AppearanceSettings.KeepFormatting">Forrás formázásának megőrzése</system:String>
+    <system:String x:Key="Str.AppearanceSettings.Left">Szöveg igazítása balra</system:String>
+    <system:String x:Key="Str.AppearanceSettings.Center">Szöveg igazítása középre</system:String>
+    <system:String x:Key="Str.AppearanceSettings.Right">Szöveg igazítása jobbra</system:String>
+    <system:String x:Key="Str.AppearanceSettings.Justify">Sorkizárt igazítás</system:String>
+    <system:String x:Key="Str.AppearanceSettings.AutoClearTexts">Ablak automatikus ürítése</system:String>
+    <system:String x:Key="Str.AppearanceSettings.AutoClearTexts2">inaktivitás után</system:String>
+    <system:String x:Key="Str.AppearanceSettings.ShowOriginalWhileTranslating">Eredeti szöveg mutatása fordítás alatt</system:String>
+    <system:String x:Key="Str.AppearanceSettings.Ms">ms</system:String>
+
+    <!--  OCR settings  -->
+    <system:String x:Key="Str.OcrSettings.WindowsOcr">Windows OCR</system:String>
+    <system:String x:Key="Str.OcrSettings.EasyOcr">EasyOCR</system:String>
+    <system:String x:Key="Str.OcrSettings.WindowsOcrDesc" xml:space="preserve">A Microsoft beépített OCR megoldása. Jól kezeli az összetett háttereket és betűtípusokat.&#13;&lt;Bold&gt;Erőforrás-igény:&lt;/Bold&gt; alacsony</system:String>
+    <system:String x:Key="Str.OcrSettings.WindowsOcrDesc2">Szükség lehet további nyelvi csomagok telepítésére</system:String>
+    <system:String x:Key="Str.OcrSettings.EasyOcrDesc" xml:space="preserve">A Jaided AI fejlett nyílt forráskódú OCR megoldása.&#13;Nagy pontosságú szövegfelismerés összetett háttér és ritka betűtípusok esetén is.&#13;&lt;Bold&gt;Erőforrás-igény:&lt;/Bold&gt; magas</system:String>
+    <system:String x:Key="Str.OcrSettings.EasyOcrDesc2">További csomagok (Python, PyTorch) telepítése szükséges</system:String>
+
+    <!--  About window  -->
+    <system:String x:Key="Str.About.Authors">Készítette: Aleksei Vekhov, Danil Iushkov és a bdstudio.hu közösség</system:String>
+    <system:String x:Key="Str.About.ProjectPage">Projekt weboldala</system:String>
+    <system:String x:Key="Str.About.ReportIssue">Hiba bejelentése</system:String>
+
+    <!--  Navigation menu  -->
+    <system:String x:Key="Str.Navigation.Languages">Nyelvek</system:String>
+    <system:String x:Key="Str.Navigation.Appearance">Megjelenés</system:String>
+    <system:String x:Key="Str.Navigation.Ocr">Szövegfelismerés</system:String>
+    <system:String x:Key="Str.Navigation.HotKeys">Gyorsbillentyűk</system:String>
+
+    <!--  Languages  -->
+    <system:String x:Key="Str.Languages.English">Angol</system:String>
+    <system:String x:Key="Str.Languages.Russian">Orosz</system:String>
+    <system:String x:Key="Str.Languages.Japanese">Japán</system:String>
+    <system:String x:Key="Str.Languages.Korean">Koreai</system:String>
+    <system:String x:Key="Str.Languages.Chinese">Kínai (egyszerűsített)</system:String>
+    <system:String x:Key="Str.Languages.Italian">Olasz</system:String>
+    <system:String x:Key="Str.Languages.French">Francia</system:String>
+    <system:String x:Key="Str.Languages.German">Német</system:String>
+    <system:String x:Key="Str.Languages.Spanish">Spanyol</system:String>
+    <system:String x:Key="Str.Languages.Portuguese">Portugál</system:String>
+    <system:String x:Key="Str.Languages.Vietnamese">Vietnámi</system:String>
+    <system:String x:Key="Str.Languages.Turkish">Török</system:String>
+    <system:String x:Key="Str.Languages.Thai">Thai</system:String>
+    <system:String x:Key="Str.Languages.Arabic">Arab</system:String>
+    <system:String x:Key="Str.Languages.Greek">Görög</system:String>
+    <system:String x:Key="Str.Languages.PortugueseBrazil">Portugál (brazíliai)</system:String>
+    <system:String x:Key="Str.Languages.Polish">Lengyel</system:String>
+    <system:String x:Key="Str.Languages.Belarusian">Belarusz</system:String>
+    <system:String x:Key="Str.Languages.Persian">Perzsa</system:String>
+    <system:String x:Key="Str.Languages.Indonesian">Indonéz</system:String>
+    <system:String x:Key="Str.Languages.Bulgarian">Bolgár</system:String>
+    <system:String x:Key="Str.Languages.Czech">Cseh</system:String>
+    <system:String x:Key="Str.Languages.Danish">Dán</system:String>
+    <system:String x:Key="Str.Languages.Estonian">Észt</system:String>
+    <system:String x:Key="Str.Languages.Finnish">Finn</system:String>
+    <system:String x:Key="Str.Languages.Hungarian">Magyar</system:String>
+    <system:String x:Key="Str.Languages.Lithuanian">Litván</system:String>
+    <system:String x:Key="Str.Languages.Latvian">Lett</system:String>
+    <system:String x:Key="Str.Languages.Dutch">Holland</system:String>
+    <system:String x:Key="Str.Languages.Romanian">Román</system:String>
+    <system:String x:Key="Str.Languages.Slovak">Szlovák</system:String>
+    <system:String x:Key="Str.Languages.Slovenian">Szlovén</system:String>
+    <system:String x:Key="Str.Languages.Swedish">Svéd</system:String>
+    <system:String x:Key="Str.Languages.Ukrainian">Ukrán</system:String>
+
+    <!--  Dialog stages  -->
+    <system:String x:Key="Str.Stages.CheckPyModules">Telepített modulok ellenőrzése...</system:String>
+    <system:String x:Key="Str.Stages.PyModulesQuestion" xml:space="preserve">A szükséges Python modulok nincsenek telepítve. Telepíteni kívánja őket most?&#13;Ez az opció csak NVIDIA videokártyával érhető el!</system:String>
+    <system:String x:Key="Str.Stages.PyModulesQuestion2" xml:space="preserve">A szükséges modulok kb. 5 GB lemezterületet foglalnak.&#13;A telepítés néhány perctől akár egy óráig is eltarthat.&#13;Folytatja?</system:String>
+    <system:String x:Key="Str.Stages.InstallationPyModule1">(1/3) 'pytorch' modul telepítése...</system:String>
+    <system:String x:Key="Str.Stages.InstallationPyModule2">(2/3) 'easyocr' modul telepítése...</system:String>
+    <system:String x:Key="Str.Stages.InstallationPyModule3">(3/3) 'pillow' modul telepítése...</system:String>
+    <system:String x:Key="Str.Stages.InstallationPyModuleTemplate">'{0}' modul telepítése...</system:String>
+    <system:String x:Key="Str.Stages.PyModulesInstalled">A szükséges modulok telepítve vannak</system:String>
+    <system:String x:Key="Str.Stages.PyModulesCheckError">Nem sikerült elérni a Pythont a modulok ellenőrzéséhez</system:String>
+    <system:String x:Key="Str.Stages.CheckLangPack">Nyelvi csomag telepítésének ellenőrzése...</system:String>
+    <system:String x:Key="Str.Stages.OCRLangPackQuestion" xml:space="preserve">A(z) '{0}' nyelv szövegfelismerése (OCR) nincs telepítve a Windowsban.&#13;Telepíteni kívánja most?</system:String>
+    <system:String x:Key="Str.Stages.TTSLangPackQuestion" xml:space="preserve">A(z) '{0}' nyelv szövegfelolvasása (TTS) nincs telepítve a Windowsban.&#13;Telepíteni kívánja most?</system:String>
+    <system:String x:Key="Str.Stages.InstallationLangPack">Nyelvi csomag telepítése...</system:String>
+    <system:String x:Key="Str.Stages.LangPackInstalledRestart">A nyelvi csomag telepítve lett. Kérjük, indítsa újra a számítógépet.</system:String>
+    <system:String x:Key="Str.Stages.LangPackInstalledTtsRestart" xml:space="preserve">A nyelvi csomag telepítve lett.&#13;Ha a TTS nem működik, indítsa újra az alkalmazást.</system:String>
+    <system:String x:Key="Str.Stages.InstallationLangError">Nem sikerült telepíteni a csomagot: '{0}'</system:String>
+    <system:String x:Key="Str.Stages.CheckLangPackError" xml:space="preserve">Váratlan hiba történt a Windows-összetevők ellenőrzésekor.&#13;Kérjük, ellenőrizze, hogy az alkalmazás rendszergazdaként fut-e.</system:String>
+    <system:String x:Key="Str.Stages.SwitchLanguage">Nyelv váltása...</system:String>
+    <system:String x:Key="Str.Stages.SwitchLanguageError">Nem sikerült nyelvet váltani: '{0}'</system:String>
+    <system:String x:Key="Str.Stages.TtsNotSupportLanguageTemplate">{0} '{1}' nem támogatja a(z) '{2}' nyelvet</system:String>
+
+    <!--  Buttons  -->
+    <system:String x:Key="Str.Button.ShowText">Mintaszöveg megjelenítése</system:String>
+    <system:String x:Key="Str.Button.Apply">Alkalmaz</system:String>
+
+    <system:String x:Key="Str.UnhandledError">Váratlan hiba történt:&#13;&#13;{0}&#13;&#13;Az alkalmazás futása folytatódik, de előfordulhat, hogy egyes funkciók nem működnek megfelelően. További részletek a naplófájlban.</system:String>
+    <system:String x:Key="Str.Lookupper.ProjectNote">Weboldal</system:String>
+    <system:String x:Key="Str.Lookupper.LinkText">bdstudio.hu — Webfejlesztés és digitális megoldások →</system:String>
+    <system:String x:Key="Str.Lookupper.Url">https://bdstudio.hu</system:String>
+
+</ResourceDictionary>
