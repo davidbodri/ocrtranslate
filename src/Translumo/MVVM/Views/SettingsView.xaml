@@ -49,12 +49,12 @@
     </Window.Resources>
 
     <Border Background="{DynamicResource BdBackgroundBrush}"
-            CornerRadius="22"
+            CornerRadius="24"
             BorderBrush="#E5E7EB"
             BorderThickness="1"
             ClipToBounds="True">
         <Border.Effect>
-            <DropShadowEffect BlurRadius="20" ShadowDepth="4" Direction="270" Color="#18000000" RenderingBias="Performance" />
+            <DropShadowEffect BlurRadius="22" ShadowDepth="4" Direction="270" Color="#18000000" RenderingBias="Performance" />
         </Border.Effect>
 
         <materialDesign:DialogHost CloseOnClickAway="{Binding DialogService.AllowCloseOnClickAway}" IsOpen="{Binding DialogService.IsOpen}">
@@ -63,164 +63,56 @@
             </materialDesign:DialogHost.DialogContent>
 
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <!-- Left Navigation Rail -->
-                    <ColumnDefinition Width="70" />
-                    <!-- Main Bento Card Area -->
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <!-- 1. LEFT MINIMALIST NAVIGATION RAIL -->
-                <Border Grid.Column="0" Background="{DynamicResource BdBackgroundBrush}" BorderBrush="#E5E7EB" BorderThickness="0,0,1,0">
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-
-                        <!-- Top Brand Mark -->
-                        <Border Grid.Row="0" Margin="0,16,0,16" HorizontalAlignment="Center">
-                            <Border Width="40" Height="40" CornerRadius="12" Background="#000000" Cursor="Hand" MouseDown="wSettings_MouseDown">
-                                <materialDesign:PackIcon Kind="LightningBolt" Width="20" Height="20" Foreground="#FFFFFF" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                            </Border>
-                        </Border>
-
-                        <!-- Navigation Items -->
-                        <ListBox Grid.Row="1"
-                                 x:Name="NavListBox"
-                                 ItemsSource="{Binding NavigationItems}"
-                                 SelectionChanged="NavListBox_SelectionChanged"
-                                 Background="Transparent"
-                                 BorderThickness="0"
-                                 HorizontalAlignment="Center"
-                                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                                 ScrollViewer.VerticalScrollBarVisibility="Disabled">
-                            <ListBox.ItemContainerStyle>
-                                <Style TargetType="{x:Type ListBoxItem}">
-                                    <Setter Property="Background" Value="Transparent" />
-                                    <Setter Property="BorderThickness" Value="0" />
-                                    <Setter Property="Padding" Value="0" />
-                                    <Setter Property="Margin" Value="0,6" />
-                                    <Setter Property="FocusVisualStyle" Value="{x:Null}" />
-                                    <Setter Property="Cursor" Value="Hand" />
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate TargetType="{x:Type ListBoxItem}">
-                                                <Border x:Name="ItemPill"
-                                                        Width="44"
-                                                        Height="44"
-                                                        CornerRadius="14"
-                                                        Background="Transparent">
-                                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
-                                                </Border>
-                                                <ControlTemplate.Triggers>
-                                                    <Trigger Property="IsMouseOver" Value="True">
-                                                        <Setter TargetName="ItemPill" Property="Background" Value="#E5E7EB" />
-                                                    </Trigger>
-                                                    <Trigger Property="IsSelected" Value="True">
-                                                        <Setter TargetName="ItemPill" Property="Background" Value="#FFFFFF" />
-                                                        <Setter TargetName="ItemPill" Property="Effect">
-                                                            <Setter.Value>
-                                                                <DropShadowEffect BlurRadius="8" ShadowDepth="1" Direction="270" Color="#15000000" RenderingBias="Performance" />
-                                                            </Setter.Value>
-                                                        </Setter>
-                                                    </Trigger>
-                                                </ControlTemplate.Triggers>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </Style>
-                            </ListBox.ItemContainerStyle>
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid ToolTip="{Binding Label}">
-                                        <materialDesign:PackIcon Kind="{Binding Icon}" Width="20" Height="20" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                            <materialDesign:PackIcon.Style>
-                                                <Style TargetType="{x:Type materialDesign:PackIcon}">
-                                                    <Setter Property="Foreground" Value="#71717A" />
-                                                    <Style.Triggers>
-                                                        <DataTrigger Binding="{Binding IsSelected, RelativeSource={RelativeSource AncestorType=ListBoxItem}}" Value="True">
-                                                            <Setter Property="Foreground" Value="#000000" />
-                                                        </DataTrigger>
-                                                    </Style.Triggers>
-                                                </Style>
-                                            </materialDesign:PackIcon.Style>
-                                        </materialDesign:PackIcon>
-                                    </Grid>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-
-                        <!-- Bottom Info Button -->
-                        <StackPanel Grid.Row="2" Margin="0,0,0,16" HorizontalAlignment="Center">
-                            <Button Command="{Binding AboutDialogOpenedCommand}"
-                                    Width="38"
-                                    Height="38"
-                                    Cursor="Hand"
-                                    Style="{StaticResource RoundSecondaryButton}"
-                                    ToolTip="Névjegy &amp; Rendszerinformáció">
-                                <materialDesign:PackIcon Kind="InformationOutline" Width="18" Height="18" Foreground="#71717A" />
-                            </Button>
-                        </StackPanel>
-                    </Grid>
-                </Border>
-
-                <!-- 2. MAIN BENTO CARD -->
-                <Border Grid.Column="1"
-                        Margin="14,14,16,16"
+                <!-- MAIN WHITE BENTO CARD -->
+                <Border Margin="14"
                         CornerRadius="20"
                         Background="#FFFFFF"
                         BorderBrush="#E5E7EB"
                         BorderThickness="1"
-                        Padding="24,20">
+                        Padding="24,18">
                     <Border.Effect>
                         <DropShadowEffect BlurRadius="12" ShadowDepth="2" Direction="270" Color="#08000000" RenderingBias="Performance" />
                     </Border.Effect>
 
                     <Grid>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" /> <!-- Clean Header & Controls -->
-                            <RowDefinition Height="*" />    <!-- Content Area -->
+                            <RowDefinition Height="Auto" /> <!-- Clean Header Row -->
+                            <RowDefinition Height="*" />    <!-- Content Area with Bottom Padding for Dock -->
                         </Grid.RowDefinitions>
 
-                        <!-- Header Row -->
+                        <!-- Top Header Row -->
                         <Grid Grid.Row="0" Margin="0,0,0,14" MouseDown="wSettings_MouseDown" Background="Transparent">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <!-- Clean Title & Description -->
-                            <StackPanel Grid.Column="0" VerticalAlignment="Center">
-                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                    <TextBlock Text="bdstudio"
-                                               FontSize="18"
-                                               FontWeight="Bold"
-                                               Foreground="#000000" />
-                                    <TextBlock Text=" / ocrtranslate"
-                                               FontSize="18"
-                                               FontWeight="Normal"
-                                               Foreground="#71717A" />
-                                </StackPanel>
-                                <TextBlock Text="Valós idejű képernyőfordítás és feliratozás"
-                                           FontSize="11"
-                                           Foreground="#A1A1AA"
-                                           Margin="0,2,0,0" />
+                            <!-- Clean Title: BDSTUDIO / ocrtranslate -->
+                            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Text="BDSTUDIO"
+                                           FontSize="20"
+                                           FontWeight="Bold"
+                                           Foreground="#000000" />
+                                <TextBlock Text=" / ocrtranslate"
+                                           FontSize="18"
+                                           FontWeight="Normal"
+                                           Foreground="#71717A"
+                                           VerticalAlignment="Bottom"
+                                           Margin="4,0,0,1" />
                             </StackPanel>
 
-                            <!-- Action Button + Window Buttons -->
+                            <!-- Top Right Controls: Test Subtitle & Window Buttons -->
                             <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
                                 <Button Command="{Binding AppearanceVm.SendTestTextCommand}"
                                         Cursor="Hand"
                                         Style="{StaticResource PrimaryButton}"
-                                        Height="32"
-                                        Padding="14,0"
+                                        Height="34"
+                                        Padding="16,0"
                                         Margin="0,0,12,0"
                                         Content="Teszt felirat"
-                                        ToolTip="Teszt felirat megjelenítése a feliratablakban" />
+                                        ToolTip="Teszt felirat megjelenítése a képernyőn" />
 
-                                <!-- Minimize Button -->
+                                <!-- Minimize Window Button -->
                                 <Button Click="btnMinimize_Click"
                                         Width="30"
                                         Height="30"
@@ -242,7 +134,7 @@
                                     </Button.Template>
                                 </Button>
 
-                                <!-- Close Button -->
+                                <!-- Close Window Button -->
                                 <Button Click="btnClose_Click"
                                         Width="30"
                                         Height="30"
@@ -265,13 +157,97 @@
                             </StackPanel>
                         </Grid>
 
-                        <!-- Content Area -->
+                        <!-- Content Area (Scrollable with bottom padding so floating dock never overlaps) -->
                         <Border Grid.Row="1" BorderBrush="#F0F1F3" BorderThickness="0,1,0,0" Padding="0,14,0,0">
-                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-                                <ContentControl Content="{Binding SelectedViewModel}" Margin="0,0,10,0" />
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Padding="0,0,10,75">
+                                <ContentControl Content="{Binding SelectedViewModel}" />
                             </ScrollViewer>
                         </Border>
                     </Grid>
+                </Border>
+
+                <!-- FLOATING BOTTOM CENTER DOCK MENU (Lebegő alsó menü) -->
+                <Border HorizontalAlignment="Center"
+                        VerticalAlignment="Bottom"
+                        Margin="0,0,0,26"
+                        Background="#18191D"
+                        BorderBrush="#2C2E35"
+                        BorderThickness="1"
+                        CornerRadius="24"
+                        Padding="6,5">
+                    <Border.Effect>
+                        <DropShadowEffect BlurRadius="28" ShadowDepth="6" Direction="270" Color="#40000000" RenderingBias="Performance" />
+                    </Border.Effect>
+
+                    <ListBox x:Name="NavListBox"
+                             ItemsSource="{Binding NavigationItems}"
+                             SelectionChanged="NavListBox_SelectionChanged"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                             ScrollViewer.VerticalScrollBarVisibility="Disabled">
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+
+                        <ListBox.ItemContainerStyle>
+                            <Style TargetType="{x:Type ListBoxItem}">
+                                <Setter Property="Background" Value="Transparent" />
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="Padding" Value="0" />
+                                <Setter Property="Margin" Value="3,0" />
+                                <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+                                <Setter Property="Cursor" Value="Hand" />
+                                <Setter Property="Template">
+                                    <Setter.Value>
+                                        <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                            <Border x:Name="PillBorder"
+                                                    CornerRadius="19"
+                                                    Background="Transparent"
+                                                    Padding="14,8"
+                                                    SnapsToDevicePixels="True">
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                    <materialDesign:PackIcon x:Name="ItemIcon"
+                                                                             Kind="{Binding Icon}"
+                                                                             Width="19"
+                                                                             Height="19"
+                                                                             Foreground="#A1A1AA"
+                                                                             VerticalAlignment="Center" />
+                                                    <TextBlock x:Name="ItemText"
+                                                               Text="{Binding Label}"
+                                                               FontWeight="SemiBold"
+                                                               FontSize="13"
+                                                               Foreground="#FFFFFF"
+                                                               Margin="8,0,2,0"
+                                                               VerticalAlignment="Center"
+                                                               Visibility="Collapsed" />
+                                                </StackPanel>
+                                            </Border>
+                                            <ControlTemplate.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter TargetName="PillBorder" Property="Background" Value="#25262B" />
+                                                    <Setter TargetName="ItemIcon" Property="Foreground" Value="#FFFFFF" />
+                                                </Trigger>
+                                                <Trigger Property="IsSelected" Value="True">
+                                                    <Setter TargetName="PillBorder" Property="Background" Value="#0055FF" />
+                                                    <Setter TargetName="ItemIcon" Property="Foreground" Value="#FFFFFF" />
+                                                    <Setter TargetName="ItemText" Property="Visibility" Value="Visible" />
+                                                </Trigger>
+                                            </ControlTemplate.Triggers>
+                                        </ControlTemplate>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </ListBox.ItemContainerStyle>
+
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <!-- ContentPresenter in template handles rendering -->
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
                 </Border>
             </Grid>
         </materialDesign:DialogHost>
