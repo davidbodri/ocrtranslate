@@ -40,17 +40,71 @@
 
     <Grid>
         <controls:TrayControl ChatOpeningCommand="{Binding ShowHideChatCommand}" SettingsOpeningCommand="{Binding ShowHideSettingsCommand}" />
-        <RichTextBox
-            x:Name="rtbChat"
-            Padding="10"
-            Background="#03000000"
-            BorderThickness="0,0,0,0"
-            Focusable="false"
-            FontSize="15"
-            IsReadOnly="True"
-            MouseDown="rtbChat_MouseDown">
-            <FlowDocument />
-        </RichTextBox>
+        
+        <!-- Glossy Glass Container -->
+        <Border Margin="1" CornerRadius="8" ClipToBounds="True">
+            <!-- 1. Outer Glass Edge (Light highlight at top, dark border at bottom) -->
+            <Border.BorderBrush>
+                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                    <GradientStop Offset="0.0" Color="#66FFFFFF" />
+                    <GradientStop Offset="0.3" Color="#26FFFFFF" />
+                    <GradientStop Offset="0.7" Color="#12FFFFFF" />
+                    <GradientStop Offset="1.0" Color="#33000000" />
+                </LinearGradientBrush>
+            </Border.BorderBrush>
+            <Border.BorderThickness>1</Border.BorderThickness>
+
+            <Grid>
+                <!-- 2. Dark Glass / Smoke Background with subtle gradient -->
+                <Border CornerRadius="7">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Offset="0.0" Color="#4D101216" />
+                            <GradientStop Offset="0.5" Color="#660A0C10" />
+                            <GradientStop Offset="1.0" Color="#80040508" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+
+                <!-- 3. Glossy Specular Reflection / Top Sheen -->
+                <Border VerticalAlignment="Top" Height="24" CornerRadius="7,7,0,0">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Offset="0.0" Color="#33FFFFFF" />
+                            <GradientStop Offset="0.4" Color="#14FFFFFF" />
+                            <GradientStop Offset="1.0" Color="#00FFFFFF" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+
+                <!-- 4. Subtle Specular Highlight Line at the very top edge -->
+                <Border VerticalAlignment="Top" Height="1" Margin="6,0,6,0">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Offset="0.0" Color="#00FFFFFF" />
+                            <GradientStop Offset="0.25" Color="#50FFFFFF" />
+                            <GradientStop Offset="0.5" Color="#88FFFFFF" />
+                            <GradientStop Offset="0.75" Color="#50FFFFFF" />
+                            <GradientStop Offset="1.0" Color="#00FFFFFF" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+
+                <!-- 5. Subtitle Text Box -->
+                <RichTextBox
+                    x:Name="rtbChat"
+                    Padding="12,8"
+                    Background="#01000000"
+                    BorderThickness="0,0,0,0"
+                    Focusable="false"
+                    FontSize="15"
+                    IsReadOnly="True"
+                    MouseDown="rtbChat_MouseDown">
+                    <FlowDocument />
+                </RichTextBox>
+            </Grid>
+        </Border>
+
         <TextBlock
             Name="fontTextBlockInstance"
             LineHeight="{Binding Model.Configuration.LineSpacing}"
