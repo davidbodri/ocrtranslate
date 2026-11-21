@@ -34,6 +34,10 @@ namespace Translumo.MVVM.ViewModels
 
         public SystemConfiguration SystemConfiguration { get; set; }
         public DialogService DialogService { get; set; }
+        public AppearanceSettingsViewModel AppearanceVm { get; }
+        public LanguagesSettingsViewModel LanguagesVm { get; }
+        public OcrSettingsViewModel OcrVm { get; }
+        public HotkeysSettingsViewModel HotkeysVm { get; }
         public ICommand NavigationItemSelectedCommand => new RelayCommand<INavigationItem>(OnNavigationItemSelected);
         public ICommand AboutDialogOpenedCommand => new RelayCommand(OnAboutDialogOpened);
 
@@ -43,6 +47,10 @@ namespace Translumo.MVVM.ViewModels
         public SettingsViewModel(DialogService dialogService, AppearanceSettingsViewModel appearanceVm, OcrSettingsViewModel ocrVm, 
             LanguagesSettingsViewModel languagesVm, HotkeysSettingsViewModel hotkeysVm, SystemConfiguration systemConfiguration, ILogger<SettingsViewModel> logger)
         {
+            this.AppearanceVm = appearanceVm;
+            this.LanguagesVm = languagesVm;
+            this.OcrVm = ocrVm;
+            this.HotkeysVm = hotkeysVm;
             this.NavigationItems = new ObservableCollection<BaseNavigationItem>();
             this.DialogService = dialogService;
             this.SystemConfiguration = systemConfiguration;

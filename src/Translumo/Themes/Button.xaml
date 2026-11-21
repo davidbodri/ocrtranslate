@@ -48,20 +48,22 @@
         TargetType="Button">
 
         <!--  Normal state  -->
-        <Setter Property="Foreground" Value="Black" />
-        <Setter Property="Background" Value="{DynamicResource PrimaryHueMidBrush}" />
+        <Setter Property="Foreground" Value="#FFFFFF" />
+        <Setter Property="Background" Value="#0F1115" />
         <Setter Property="Height" Value="{DynamicResource ControlHeight}" />
-        <Setter Property="Padding" Value="{DynamicResource ControlPadding}" />
-        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+        <Setter Property="Padding" Value="16,8" />
+        <Setter Property="materialDesign:ButtonAssist.CornerRadius" Value="14" />
+        <Setter Property="Cursor" Value="Hand" />
+        <Setter Property="FontWeight" Value="SemiBold" />
 
         <!--  Ripple effect  -->
-        <Setter Property="materialDesign:RippleAssist.Feedback" Value="{DynamicResource PrimaryHueLightBrush}" />
+        <Setter Property="materialDesign:RippleAssist.Feedback" Value="#33FFFFFF" />
 
         <Style.Triggers>
             <!--  Hover state  -->
             <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="{DynamicResource PrimaryHueDarkBrush}" />
-                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="Background" Value="#2D3139" />
+                <Setter Property="Foreground" Value="#FFFFFF" />
             </Trigger>
         </Style.Triggers>
     </Style>

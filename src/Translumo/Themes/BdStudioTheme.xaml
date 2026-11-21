@@ -5,22 +5,22 @@
     xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
 
     <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/MaterialDesignDarkTheme.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/MaterialDesignExtensions;component/Themes/MaterialDesignLightTheme.xaml" />
         <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/materialdesigncolor.cyan.accent.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <!-- Fonts -->
-    <FontFamily x:Key="MaterialDesignFont">Segoe UI Variable, Segoe UI, Arial, sans-serif</FontFamily>
+    <FontFamily x:Key="MaterialDesignFont">Segoe UI Variable, Segoe UI, -apple-system, BlinkMacSystemFont, Arial, sans-serif</FontFamily>
 
-    <!-- Base Black-and-White Palette -->
-    <Color x:Key="BdBackground">#0A0A0A</Color>
-    <Color x:Key="BdPanel">#121212</Color>
-    <Color x:Key="BdPanelHover">#1C1C1C</Color>
-    <Color x:Key="BdInput">#181818</Color>
-    <Color x:Key="BdBorder">#2A2A2A</Color>
-    <Color x:Key="BdTextPrimary">#FFFFFF</Color>
-    <Color x:Key="BdTextSecondary">#B3B3B3</Color>
-    <Color x:Key="BdTextDisabled">#555555</Color>
+    <!-- Modern Soft Bento Palette -->
+    <Color x:Key="BdBackground">#EAECEF</Color>
+    <Color x:Key="BdPanel">#FFFFFF</Color>
+    <Color x:Key="BdPanelHover">#F7F8FA</Color>
+    <Color x:Key="BdInput">#F2F4F7</Color>
+    <Color x:Key="BdBorder">#E5E7EB</Color>
+    <Color x:Key="BdTextPrimary">#0F1115</Color>
+    <Color x:Key="BdTextSecondary">#6B7280</Color>
+    <Color x:Key="BdTextDisabled">#9CA3AF</Color>
 
     <SolidColorBrush x:Key="BdBackgroundBrush" Color="{StaticResource BdBackground}" />
     <SolidColorBrush x:Key="BdPanelBrush" Color="{StaticResource BdPanel}" />
@@ -40,40 +40,40 @@
     <SolidColorBrush x:Key="MaterialDesignDivider" Color="{StaticResource BdBorder}" />
     <SolidColorBrush x:Key="MaterialDesignTextFieldBoxBackground" Color="{StaticResource BdInput}" />
     <SolidColorBrush x:Key="MaterialDesignTextFieldBoxHoverBackground" Color="{StaticResource BdPanelHover}" />
-    <SolidColorBrush x:Key="MaterialDesignFlatButtonClick" Color="#333333" />
-    <SolidColorBrush x:Key="MaterialDesignFlatButtonRipple" Color="#444444" />
+    <SolidColorBrush x:Key="MaterialDesignFlatButtonClick" Color="#E5E7EB" />
+    <SolidColorBrush x:Key="MaterialDesignFlatButtonRipple" Color="#D1D5DB" />
 
-    <!-- Translumo Legacy Brush Mapping to Black-and-White Theme -->
-    <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#2A2A2A" />
-    <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#FFFFFF" />
-    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#FFFFFF" />
-    <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#0A0A0A" />
-    <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#D0D0D0" />
-    <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#0A0A0A" />
+    <!-- Translumo Legacy Brush Mapping to Clean Bento Theme -->
+    <SolidColorBrush x:Key="PrimaryHueLightBrush" Color="#F2F4F7" />
+    <SolidColorBrush x:Key="PrimaryHueLightForegroundBrush" Color="#0F1115" />
+    <SolidColorBrush x:Key="PrimaryHueMidBrush" Color="#0F1115" />
+    <SolidColorBrush x:Key="PrimaryHueMidForegroundBrush" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="PrimaryHueDarkBrush" Color="#1F2937" />
+    <SolidColorBrush x:Key="PrimaryHueDarkForegroundBrush" Color="#FFFFFF" />
 
-    <SolidColorBrush x:Key="SecondaryHueLightBrush" Color="{StaticResource BdBackground}" />
-    <SolidColorBrush x:Key="SecondaryHueLightForegroundBrush" Color="#FFFFFF" />
-    <SolidColorBrush x:Key="SecondaryHueMidBrush" Color="#181818" />
-    <SolidColorBrush x:Key="SecondaryHueMidForegroundBrush" Color="#FFFFFF" />
-    <SolidColorBrush x:Key="SecondaryHueDarkBrush" Color="#B3B3B3" />
-    <SolidColorBrush x:Key="SecondaryHueDarkForegroundBrush" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="SecondaryHueLightBrush" Color="#F8F9FA" />
+    <SolidColorBrush x:Key="SecondaryHueLightForegroundBrush" Color="#0F1115" />
+    <SolidColorBrush x:Key="SecondaryHueMidBrush" Color="#E5E7EB" />
+    <SolidColorBrush x:Key="SecondaryHueMidForegroundBrush" Color="#0F1115" />
+    <SolidColorBrush x:Key="SecondaryHueDarkBrush" Color="#6B7280" />
+    <SolidColorBrush x:Key="SecondaryHueDarkForegroundBrush" Color="#0F1115" />
 
     <SolidColorBrush x:Key="ChromeBackgroundBrush" Color="Transparent" />
-    <SolidColorBrush x:Key="ChromeForegroundBrush" Color="#FFFFFF" />
-    <SolidColorBrush x:Key="ChromeSelectionBrush" Color="#222222" />
+    <SolidColorBrush x:Key="ChromeForegroundBrush" Color="#0F1115" />
+    <SolidColorBrush x:Key="ChromeSelectionBrush" Color="#FFFFFF" />
     <SolidColorBrush x:Key="HoverBackgroundBrush" Color="{StaticResource BdPanelHover}" />
-    <SolidColorBrush x:Key="ErrorBrush" Color="#E53935" />
-    <SolidColorBrush x:Key="WarningBrush" Color="#B3B3B3" />
+    <SolidColorBrush x:Key="ErrorBrush" Color="#EF4444" />
+    <SolidColorBrush x:Key="WarningBrush" Color="#F59E0B" />
 
     <!-- Metrics -->
-    <CornerRadius x:Key="ControlCornerRadius">6</CornerRadius>
-    <CornerRadius x:Key="SurfaceCornerRadius">8</CornerRadius>
+    <CornerRadius x:Key="ControlCornerRadius">12</CornerRadius>
+    <CornerRadius x:Key="SurfaceCornerRadius">22</CornerRadius>
 
-    <!-- Custom Modern Dark ScrollBar -->
+    <!-- Custom Modern Light Bento ScrollBar -->
     <Style TargetType="{x:Type ScrollBar}">
         <Setter Property="Background" Value="Transparent" />
-        <Setter Property="Foreground" Value="#333333" />
-        <Setter Property="Width" Value="8" />
+        <Setter Property="Foreground" Value="#CBD5E1" />
+        <Setter Property="Width" Value="6" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type ScrollBar}">
@@ -83,10 +83,10 @@
                                 <Thumb>
                                     <Thumb.Template>
                                         <ControlTemplate TargetType="{x:Type Thumb}">
-                                            <Border Background="#333333" CornerRadius="4" Margin="1" />
+                                            <Border Background="#D1D5DB" CornerRadius="3" Margin="0" />
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="true">
-                                                    <Setter Property="Background" Value="#555555" />
+                                                    <Setter Property="Background" Value="#9CA3AF" />
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>

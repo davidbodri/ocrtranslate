@@ -30,8 +30,9 @@
         <Setter Property="Height" Value="{DynamicResource ControlHeight}" />
         <Setter Property="Width" Value="96" />
         <Setter Property="FontSize" Value="14" />
-        <Setter Property="Background" Value="{DynamicResource SecondaryHueLightBrush}" />
-        <Setter Property="BorderBrush" Value="{DynamicResource PrimaryHueDarkBrush}" />
+        <Setter Property="Background" Value="{DynamicResource BdInputBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource BdBorderBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource BdTextPrimaryBrush}" />
         <Setter Property="BorderThickness" Value="1" />
         <Setter Property="Template">
             <Setter.Value>

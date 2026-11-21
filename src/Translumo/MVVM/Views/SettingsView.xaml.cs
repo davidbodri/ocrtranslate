@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Threading;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
 using Translumo.Infrastructure.Language;
@@ -31,6 +32,11 @@ namespace Translumo.MVVM.Views
         {
             _toOpenStoryboard = CreateStoryboardToOpenWindow(true);
             _toCloseStoryboard = CreateStoryboardToOpenWindow(false);
+
+            if (NavListBox != null && NavListBox.Items.Count > 0 && NavListBox.SelectedIndex < 0)
+            {
+                NavListBox.SelectedIndex = 0;
+            }
 
             this.Activate();
         }
@@ -71,21 +77,21 @@ namespace Translumo.MVVM.Views
 
         private void wSettings_SourceInitialized(object sender, EventArgs e)
         {
-            ViewModel.PropertyChanged += ViewModelOnPropertyChanged;
+            if (ViewModel != null)
+            {
+                ViewModel.PropertyChanged += ViewModelOnPropertyChanged;
+            }
         }
 
         private void wSettings_Activated(object sender, EventArgs e)
         {
-            //this.Topmost = true;
         }
 
         private void wSettings_Deactivated(object sender, EventArgs e)
         {
-            //this.Topmost = true;
-            //this.Activate();
         }
 
-        private void wSettings_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void wSettings_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ChangedButton == MouseButton.Left)
             {
@@ -93,16 +99,21 @@ namespace Translumo.MVVM.Views
             }
         }
 
-        private void SnMenu_Loaded(object sender, RoutedEventArgs e)
+        private void btnMinimize_Click(object sender, RoutedEventArgs e)
         {
-            var sideNav = sender as MaterialDesignExtensions.Controls.SideNavigation;
-            if (sideNav == null) return;
+            this.WindowState = WindowState.Minimized;
+        }
 
-            // Check if there is at least one item
-            if (sideNav.Items.Count > 0)
+        private void btnClose_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+        private void NavListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (NavListBox?.SelectedItem is MaterialDesignExtensions.Model.INavigationItem navItem)
             {
-                // Set the first item as selected
-                sideNav.SelectedItem = (MaterialDesignExtensions.Model.INavigationItem)sideNav.Items[0];
+                ViewModel?.NavigationItemSelectedCommand?.Execute(navItem);
             }
         }
 

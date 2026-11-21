@@ -7,11 +7,12 @@
         x:Key="PrimaryToggleButton"
         BasedOn="{StaticResource MaterialDesignSwitchToggleButton}"
         TargetType="{x:Type ToggleButton}">
-        <Setter Property="materialDesign:ToggleButtonAssist.SwitchTrackOffBackground" Value="Gray" />
+        <Setter Property="materialDesign:ToggleButtonAssist.SwitchTrackOffBackground" Value="#D1D5DB" />
+        <Setter Property="Cursor" Value="Hand" />
         <Style.Triggers>
             <Trigger Property="IsChecked" Value="True">
-                <Setter Property="Background" Value="{DynamicResource PrimaryHueMidBrush}" />
-                <Setter Property="materialDesign:ToggleButtonAssist.SwitchTrackOnBackground" Value="{DynamicResource PrimaryHueDarkBrush}" />
+                <Setter Property="Background" Value="#0F1115" />
+                <Setter Property="materialDesign:ToggleButtonAssist.SwitchTrackOnBackground" Value="#0F1115" />
             </Trigger>
         </Style.Triggers>
     </Style>
