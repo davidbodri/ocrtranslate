@@ -93,9 +93,16 @@ namespace Translumo.MVVM.Views
 
         private void wSettings_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Left)
+            if (e.ChangedButton == MouseButton.Left && e.ButtonState == MouseButtonState.Pressed)
             {
-                this.DragMove();
+                try
+                {
+                    this.DragMove();
+                }
+                catch (InvalidOperationException)
+                {
+                    // DragMove requires primary mouse button to be down; ignore release race conditions
+                }
             }
         }
 

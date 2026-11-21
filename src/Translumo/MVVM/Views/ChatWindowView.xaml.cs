@@ -289,7 +289,7 @@ namespace Translumo.MVVM.Views
 
         private void rtbChat_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Left)
+            if (e.ChangedButton == MouseButton.Left && e.ButtonState == MouseButtonState.Pressed)
             {
                 if (_configuration?.AutoHideEnabled == true)
                 {
@@ -297,7 +297,13 @@ namespace Translumo.MVVM.Views
                     ShowBlackBar();
                 }
 
-                this.DragMove();
+                try
+                {
+                    this.DragMove();
+                }
+                catch (InvalidOperationException)
+                {
+                }
 
                 if (_configuration?.AutoHideEnabled == true)
                 {

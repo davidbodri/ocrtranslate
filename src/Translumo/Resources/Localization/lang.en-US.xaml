@@ -32,6 +32,7 @@
     <system:String x:Key="Str.LangSettings.DeeplApiKey">DeepL API key</system:String>
     <system:String x:Key="Str.LangSettings.Translator">Translator</system:String>
     <system:String x:Key="Str.LangSettings.TtsSystem">Text to speech system</system:String>
+    <system:String x:Key="Str.LangSettings.Voices">Voices</system:String>
 
     <!--  Hotkeys descriptions  -->
     <system:String x:Key="Str.Hotkeys.ChatVisibility">Show/hide translation window</system:String>
@@ -66,6 +67,13 @@
     <system:String x:Key="Str.AppearanceSettings.AutoClearTexts">Auto clear window</system:String>
     <system:String x:Key="Str.AppearanceSettings.AutoClearTexts2">after inactivity</system:String>
     <system:String x:Key="Str.AppearanceSettings.ShowOriginalWhileTranslating">Show original while translating</system:String>
+    <system:String x:Key="Str.AppearanceSettings.Blur">Background blur</system:String>
+    <system:String x:Key="Str.AppearanceSettings.AutoHide">Auto-hide subtitles</system:String>
+    <system:String x:Key="Str.AppearanceSettings.IdleHideDelay">Idle hide delay (ms)</system:String>
+    <system:String x:Key="Str.AppearanceSettings.LineHoldDuration">Line hold duration (ms)</system:String>
+    <system:String x:Key="Str.AppearanceSettings.EmptyScans">Empty scans to hide</system:String>
+    <system:String x:Key="Str.AppearanceSettings.FadeOut">Fade-out (ms, 0 = instant)</system:String>
+    <system:String x:Key="Str.AppearanceSettings.WatcherInterval">Watcher interval (ms)</system:String>
     <system:String x:Key="Str.AppearanceSettings.Ms">ms</system:String>
 
 

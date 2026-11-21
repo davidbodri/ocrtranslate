@@ -11,7 +11,7 @@
     <system:String x:Key="Str.NewVersion">Új verzió érhető el!</system:String>
 
     <!--  Titles  -->
-    <system:String x:Key="Str.Title.SettingWindow" xml:space="preserve">Beállítások - bdstudio.hu/ocrtranslate</system:String>
+    <system:String x:Key="Str.Title.SettingWindow" xml:space="preserve">Beállítások - BDSTUDIO.</system:String>
 
     <!--  Tray  -->
     <system:String x:Key="Str.Tray.ShowHideSettings">Beállítások megjelenítése/elrejtése</system:String>
@@ -30,6 +30,7 @@
     <system:String x:Key="Str.LangSettings.DeeplApiKey">DeepL API kulcs</system:String>
     <system:String x:Key="Str.LangSettings.Translator">Fordító motor</system:String>
     <system:String x:Key="Str.LangSettings.TtsSystem">Szövegfelolvasó rendszer (TTS)</system:String>
+    <system:String x:Key="Str.LangSettings.Voices">Hang kiválasztása</system:String>
 
     <!--  Hotkeys descriptions  -->
     <system:String x:Key="Str.Hotkeys.ChatVisibility">Feliratablak megjelenítése/elrejtése</system:String>
@@ -64,6 +65,13 @@
     <system:String x:Key="Str.AppearanceSettings.AutoClearTexts">Ablak automatikus ürítése</system:String>
     <system:String x:Key="Str.AppearanceSettings.AutoClearTexts2">inaktivitás után</system:String>
     <system:String x:Key="Str.AppearanceSettings.ShowOriginalWhileTranslating">Eredeti szöveg mutatása fordítás alatt</system:String>
+    <system:String x:Key="Str.AppearanceSettings.Blur">Háttér elmosása (Blur)</system:String>
+    <system:String x:Key="Str.AppearanceSettings.AutoHide">Felirat automatikus elrejtése</system:String>
+    <system:String x:Key="Str.AppearanceSettings.IdleHideDelay">Inaktivitási késleltetés (ms)</system:String>
+    <system:String x:Key="Str.AppearanceSettings.LineHoldDuration">Sor megtartási ideje (ms)</system:String>
+    <system:String x:Key="Str.AppearanceSettings.EmptyScans">Üres észlelések száma az elrejtésig</system:String>
+    <system:String x:Key="Str.AppearanceSettings.FadeOut">Áttűnés / Fade-out (ms, 0 = azonnali)</system:String>
+    <system:String x:Key="Str.AppearanceSettings.WatcherInterval">Figyelési időköz (ms)</system:String>
     <system:String x:Key="Str.AppearanceSettings.Ms">ms</system:String>
 
     <!--  OCR settings  -->

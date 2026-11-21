@@ -130,14 +130,14 @@
                         x:Name="BlurEnabledToggle"
                         IsChecked="{Binding Model.BlurEnabled}"
                         Style="{StaticResource PrimaryToggleButton}" />
-                    <Label Content="Background blur" Style="{StaticResource ControlCaptionLabel}" />
+                    <Label Content="{DynamicResource Str.AppearanceSettings.Blur}" Style="{StaticResource ControlCaptionLabel}" />
                 </StackPanel>
                 <StackPanel Margin="0,0,0,16" Orientation="Horizontal">
                     <ToggleButton
                         x:Name="AutoHideEnabledToggle"
                         IsChecked="{Binding Model.AutoHideEnabled}"
                         Style="{StaticResource PrimaryToggleButton}" />
-                    <Label Content="Auto-hide subtitles" Style="{StaticResource ControlCaptionLabel}" />
+                    <Label Content="{DynamicResource Str.AppearanceSettings.AutoHide}" Style="{StaticResource ControlCaptionLabel}" />
                 </StackPanel>
                 <StackPanel Margin="0,0,0,16" Orientation="Horizontal" Visibility="{Binding Model.AutoHideEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <controls:NumericInput
@@ -146,7 +146,7 @@
                         Minimum="50"
                         Step="50"
                         Value="{Binding Model.IdleHideMs, Mode=TwoWay}" />
-                    <Label Margin="8,0,0,0" Content="Idle hide delay (ms)" Style="{StaticResource ControlCaptionLabel}" />
+                    <Label Margin="8,0,0,0" Content="{DynamicResource Str.AppearanceSettings.IdleHideDelay}" Style="{StaticResource ControlCaptionLabel}" />
                 </StackPanel>
                 <StackPanel Margin="0,0,0,16" Orientation="Horizontal" Visibility="{Binding Model.AutoHideEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <controls:NumericInput
@@ -155,7 +155,7 @@
                         Minimum="50"
                         Step="50"
                         Value="{Binding Model.LineHoldMs, Mode=TwoWay}" />
-                    <Label Margin="8,0,0,0" Content="Line hold duration (ms)" Style="{StaticResource ControlCaptionLabel}" />
+                    <Label Margin="8,0,0,0" Content="{DynamicResource Str.AppearanceSettings.LineHoldDuration}" Style="{StaticResource ControlCaptionLabel}" />
                 </StackPanel>
                 <StackPanel Margin="0,0,0,16" Orientation="Horizontal" Visibility="{Binding Model.AutoHideEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <controls:NumericInput
@@ -164,7 +164,7 @@
                         Minimum="1"
                         Step="1"
                         Value="{Binding Model.EmptyScansBeforeHide, Mode=TwoWay}" />
-                    <Label Margin="8,0,0,0" Content="Empty scans to hide" Style="{StaticResource ControlCaptionLabel}" />
+                    <Label Margin="8,0,0,0" Content="{DynamicResource Str.AppearanceSettings.EmptyScans}" Style="{StaticResource ControlCaptionLabel}" />
                 </StackPanel>
                 <StackPanel Margin="0,0,0,16" Orientation="Horizontal" Visibility="{Binding Model.AutoHideEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <controls:NumericInput
@@ -173,7 +173,7 @@
                         Minimum="0"
                         Step="50"
                         Value="{Binding Model.FadeOutMs, Mode=TwoWay}" />
-                    <Label Margin="8,0,0,0" Content="Fade-out (ms, 0 = instant)" Style="{StaticResource ControlCaptionLabel}" />
+                    <Label Margin="8,0,0,0" Content="{DynamicResource Str.AppearanceSettings.FadeOut}" Style="{StaticResource ControlCaptionLabel}" />
                 </StackPanel>
                 <StackPanel Margin="0,0,0,16" Orientation="Horizontal" Visibility="{Binding Model.AutoHideEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <controls:NumericInput
@@ -182,7 +182,7 @@
                         Minimum="20"
                         Step="10"
                         Value="{Binding Model.WatchIntervalMs, Mode=TwoWay}" />
-                    <Label Margin="8,0,0,0" Content="Watcher interval (ms)" Style="{StaticResource ControlCaptionLabel}" />
+                    <Label Margin="8,0,0,0" Content="{DynamicResource Str.AppearanceSettings.WatcherInterval}" Style="{StaticResource ControlCaptionLabel}" />
                 </StackPanel>
                 <StackPanel Margin="0,0,0,16" Orientation="Horizontal" Visibility="{Binding Model.AutoHideEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
                     <ToggleButton
@@ -211,13 +211,6 @@
                 Orientation="Horizontal">
                 <ToggleButton IsChecked="{Binding Model.FontBold}" Style="{StaticResource PrimaryToggleButton}" />
                 <Label Content="{DynamicResource Str.AppearanceSettings.Bold}" Style="{StaticResource ControlCaptionLabel}" />
-            </StackPanel>
-            <StackPanel
-                Grid.Row="2"
-                Grid.Column="1"
-                Orientation="Horizontal">
-                <ToggleButton IsChecked="{Binding Model.TextProcessing.KeepFormatting}" Style="{StaticResource PrimaryToggleButton}" />
-                <Label Content="{DynamicResource Str.AppearanceSettings.KeepFormatting}" Style="{StaticResource ControlCaptionLabel}" />
             </StackPanel>
             <StackPanel
                 Grid.Row="4"

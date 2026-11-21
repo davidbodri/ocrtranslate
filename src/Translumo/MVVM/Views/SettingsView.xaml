@@ -21,7 +21,6 @@
     WindowStyle="None"
     Deactivated="wSettings_Deactivated"
     FontFamily="{DynamicResource MaterialDesignFont}"
-    MouseDown="wSettings_MouseDown"
     ResizeMode="CanResizeWithGrip"
     SourceInitialized="wSettings_SourceInitialized"
     TextElement.FontSize="13"
@@ -87,19 +86,13 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <!-- Clean Title: BDSTUDIO / ocrtranslate -->
-                            <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
-                                <TextBlock Text="BDSTUDIO"
-                                           FontSize="20"
-                                           FontWeight="Bold"
-                                           Foreground="#000000" />
-                                <TextBlock Text=" / ocrtranslate"
-                                           FontSize="18"
-                                           FontWeight="Normal"
-                                           Foreground="#71717A"
-                                           VerticalAlignment="Bottom"
-                                           Margin="4,0,0,1" />
-                            </StackPanel>
+                            <!-- Clean Title: BDSTUDIO. -->
+                            <TextBlock Grid.Column="0"
+                                       Text="BDSTUDIO."
+                                       FontSize="22"
+                                       FontWeight="Black"
+                                       Foreground="#000000"
+                                       VerticalAlignment="Center" />
 
                             <!-- Top Right Controls: Test Subtitle & Window Buttons -->
                             <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
@@ -166,12 +159,12 @@
                     </Grid>
                 </Border>
 
-                <!-- FLOATING BOTTOM CENTER DOCK MENU (Lebegő alsó menü) -->
+                <!-- FLOATING BOTTOM CENTER DOCK MENU (Lebegő alsó menü - Fekete/Fehér) -->
                 <Border HorizontalAlignment="Center"
                         VerticalAlignment="Bottom"
                         Margin="0,0,0,26"
-                        Background="#18191D"
-                        BorderBrush="#2C2E35"
+                        Background="#000000"
+                        BorderBrush="#202022"
                         BorderThickness="1"
                         CornerRadius="24"
                         Padding="6,5">
@@ -213,26 +206,31 @@
                                                                              Kind="{Binding Icon}"
                                                                              Width="19"
                                                                              Height="19"
-                                                                             Foreground="#A1A1AA"
+                                                                             Foreground="#8E8E93"
                                                                              VerticalAlignment="Center" />
                                                     <TextBlock x:Name="ItemText"
                                                                Text="{Binding Label}"
-                                                               FontWeight="SemiBold"
+                                                               FontWeight="Bold"
                                                                FontSize="13"
-                                                               Foreground="#FFFFFF"
+                                                               Foreground="#000000"
                                                                Margin="8,0,2,0"
                                                                VerticalAlignment="Center"
                                                                Visibility="Collapsed" />
                                                 </StackPanel>
                                             </Border>
                                             <ControlTemplate.Triggers>
-                                                <Trigger Property="IsMouseOver" Value="True">
-                                                    <Setter TargetName="PillBorder" Property="Background" Value="#25262B" />
+                                                <MultiTrigger>
+                                                    <MultiTrigger.Conditions>
+                                                        <Condition Property="IsMouseOver" Value="True" />
+                                                        <Condition Property="IsSelected" Value="False" />
+                                                    </MultiTrigger.Conditions>
+                                                    <Setter TargetName="PillBorder" Property="Background" Value="#222222" />
                                                     <Setter TargetName="ItemIcon" Property="Foreground" Value="#FFFFFF" />
-                                                </Trigger>
+                                                </MultiTrigger>
                                                 <Trigger Property="IsSelected" Value="True">
-                                                    <Setter TargetName="PillBorder" Property="Background" Value="#0055FF" />
-                                                    <Setter TargetName="ItemIcon" Property="Foreground" Value="#FFFFFF" />
+                                                    <Setter TargetName="PillBorder" Property="Background" Value="#FFFFFF" />
+                                                    <Setter TargetName="ItemIcon" Property="Foreground" Value="#000000" />
+                                                    <Setter TargetName="ItemText" Property="Foreground" Value="#000000" />
                                                     <Setter TargetName="ItemText" Property="Visibility" Value="Visible" />
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
