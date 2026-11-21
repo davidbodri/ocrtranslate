@@ -143,6 +143,12 @@ namespace Translumo
                 chatConfig.HideDelayMs = 2500;
             }
 
+            var textProcessingConfig = _serviceProvider.GetService<TextProcessingConfiguration>();
+            if (textProcessingConfig != null)
+            {
+                textProcessingConfig.KeepFormatting = false;
+            }
+
             var systemConfiguration = _serviceProvider.GetService<SystemConfiguration>();
             LocalizationManager.ChangeAppCulture(new CultureInfo(systemConfiguration.ApplicationCulture));
 

@@ -30,7 +30,7 @@ namespace Translumo.MVVM.Views
         private ChatWindowConfiguration _configuration;
         private DispatcherTimer _hideTimer;
         private bool _isFadingOut;
-        private SubtitleLineTracker _lineTracker;
+        private string _lastDisplayedSubtitle;
 
         public ChatWindowView()
         {
@@ -42,7 +42,7 @@ namespace Translumo.MVVM.Views
             RemoveFirstTextBlocks(e.NumberRemoved);
             if (_configuration?.AutoHideEnabled == true && rtbChat.Document.Blocks.Count == 0)
             {
-                _lineTracker?.Clear();
+                _lastDisplayedSubtitle = null;
                 _hideTimer?.Stop();
                 StartFadeOut();
             }
@@ -52,7 +52,7 @@ namespace Translumo.MVVM.Views
         {
             Dispatcher.Invoke(() =>
             {
-                _lineTracker?.Clear();
+                _lastDisplayedSubtitle = null;
                 rtbChat.Document.Blocks.Clear();
                 if (_configuration?.AutoHideEnabled == true)
                 {
@@ -65,13 +65,6 @@ namespace Translumo.MVVM.Views
         {
             if (_configuration?.AutoHideEnabled == true)
             {
-                // In subtitle mode (AutoHide), non-empty translated text is handled via TextWithOriginalRaised.
-                // But empty text notifications must reach DisplaySubtitle to retire missing lines when text disappears.
-                if (e.TextType == TextTypes.Translation && !string.IsNullOrWhiteSpace(e.Text))
-                {
-                    return;
-                }
-
                 if (e.TextType == TextTypes.Info || e.TextType == TextTypes.Error)
                 {
                     ShowBlackBar();
@@ -80,7 +73,13 @@ namespace Translumo.MVVM.Views
                     return;
                 }
 
-                DisplaySubtitle(e.Text, e.TextType);
+                if (e.TextType == TextTypes.Translation)
+                {
+                    if (!string.IsNullOrWhiteSpace(e.Text))
+                    {
+                        DisplayTranslatedSubtitle(e.Text);
+                    }
+                }
             }
             else
             {
@@ -105,130 +104,67 @@ namespace Translumo.MVVM.Views
             this.Opacity = 1.0;
         }
 
-        private void DisplaySubtitle(string text, TextTypes textType)
+        private void DisplayTranslatedSubtitle(string text)
         {
             if (!Dispatcher.CheckAccess())
             {
-                Dispatcher.Invoke(() => DisplaySubtitle(text, textType));
+                Dispatcher.Invoke(() => DisplayTranslatedSubtitle(text));
                 return;
             }
 
-            var rawLines = SubtitleLineTracker.SplitIntoLinesOrSentences(text, _configuration?.SplitBySentenceFallback ?? true);
-            var trackedLines = _lineTracker?.UpdateLines(rawLines);
-
-            if (_lineTracker == null || !_lineTracker.HasActiveLines)
+            if (string.IsNullOrWhiteSpace(text))
             {
-                if (!_isFadingOut && this.Opacity > 0.0)
-                {
-                    StartFadeOut();
-                }
                 return;
             }
+
+            if (string.Equals(_lastDisplayedSubtitle, text, StringComparison.Ordinal))
+            {
+                ResetHideTimer();
+                return;
+            }
+
+            _lastDisplayedSubtitle = text;
 
             ShowBlackBar();
 
-            RenderTrackedLines(trackedLines, textType);
-            ResetHideTimer();
-        }
-
-        private void RenderTrackedLines(IReadOnlyList<TrackedSubtitleLine> trackedLines, TextTypes textType)
-        {
             rtbChat.Document.Blocks.Clear();
-            if (trackedLines == null || trackedLines.Count == 0)
+
+            var lines = text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var line in lines)
             {
-                return;
-            }
-
-            string previousText = null;
-            foreach (var line in trackedLines)
-            {
-                if (!line.IsActive)
+                var trimmed = line.Trim();
+                if (string.IsNullOrEmpty(trimmed))
                 {
                     continue;
                 }
 
-                string displayText = line.DisplayText;
-                if (string.IsNullOrWhiteSpace(displayText))
+                var paragraph = new Paragraph
                 {
-                    if (_configuration?.ShowOriginalWhileTranslating == true)
-                    {
-                        displayText = line.OriginalText;
-                    }
-                    else if (_configuration?.KeepEmptySlotSpace == true)
-                    {
-                        displayText = " ";
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-
-                if (string.IsNullOrWhiteSpace(displayText))
-                {
-                    continue;
-                }
-
-                // Prevent rendering duplicate lines consecutively
-                if (!string.IsNullOrWhiteSpace(previousText) &&
-                    string.Equals(displayText?.Trim(), previousText.Trim(), StringComparison.OrdinalIgnoreCase))
-                {
-                    continue;
-                }
-                previousText = displayText;
-
-                var paragraph = new Paragraph { LineHeight = fontTextBlockInstance.LineHeight, TextAlignment = fontTextBlockInstance.TextAlignment, Margin = new Thickness(0, 0, 0, 4) };
-                var run = GetRunInstance(textType).Clone(displayText);
+                    LineHeight = fontTextBlockInstance.LineHeight,
+                    TextAlignment = fontTextBlockInstance.TextAlignment,
+                    Margin = new Thickness(0, 0, 0, 4)
+                };
+                var run = GetRunInstance(TextTypes.Translation).Clone(trimmed);
                 paragraph.Inlines.Add(run);
                 rtbChat.Document.Blocks.Add(paragraph);
             }
+
+            ResetHideTimer();
         }
 
         private void ViewModelOnTextWithOriginalRaised(object sender, TranslatedWithOriginalEventArgs e)
         {
             Dispatcher.Invoke(() =>
             {
-                if (string.IsNullOrEmpty(e.Translated))
+                if (!string.IsNullOrWhiteSpace(e.Translated))
                 {
-                    if (_configuration?.ShowOriginalWhileTranslating == true)
-                    {
-                        DisplaySubtitleOriginal(e.Original);
-                    }
+                    DisplayTranslatedSubtitle(e.Translated);
                 }
-                else
+                else if (_configuration?.ShowOriginalWhileTranslating == true && !string.IsNullOrWhiteSpace(e.Original))
                 {
-                    var rawLines = SubtitleLineTracker.SplitIntoLinesOrSentences(e.Original, _configuration?.SplitBySentenceFallback ?? true);
-                    _lineTracker?.UpdateLines(rawLines);
-
-                    _lineTracker?.UpdateTranslation(e.Original, e.Translated);
-                    if (_lineTracker != null && _lineTracker.HasActiveLines)
-                    {
-                        ShowBlackBar();
-                        RenderTrackedLines(_lineTracker.GetCurrentLines(), TextTypes.Translation);
-                        ResetHideTimer();
-                    }
+                    DisplayTranslatedSubtitle(e.Original);
                 }
             });
-        }
-
-        private void DisplaySubtitleOriginal(string originalText)
-        {
-            if (string.IsNullOrWhiteSpace(originalText))
-            {
-                return;
-            }
-
-            var rawLines = SubtitleLineTracker.SplitIntoLinesOrSentences(originalText, _configuration?.SplitBySentenceFallback ?? true);
-            var trackedLines = _lineTracker?.UpdateLines(rawLines);
-
-            if (_lineTracker == null || !_lineTracker.HasActiveLines)
-            {
-                return;
-            }
-
-            ShowBlackBar();
-            RenderTrackedLines(trackedLines, TextTypes.Translation);
-            ResetHideTimer();
         }
 
         private void ResetHideTimer()
@@ -259,7 +195,7 @@ namespace Translumo.MVVM.Views
                 return;
             }
 
-            _lineTracker?.Clear();
+            _lastDisplayedSubtitle = null;
             StartFadeOut();
         }
 
@@ -275,7 +211,7 @@ namespace Translumo.MVVM.Views
             this.Opacity = 0.0;
             _isFadingOut = false;
             _hideTimer?.Stop();
-            _lineTracker?.Clear();
+            _lastDisplayedSubtitle = null;
             rtbChat.Document.Blocks.Clear();
             WindowBlurHelper.Disable(this);
             this.Background = Brushes.Transparent;
@@ -310,7 +246,7 @@ namespace Translumo.MVVM.Views
                     this.BeginAnimation(UIElement.OpacityProperty, null);
                     this.Opacity = 0.0;
                     _isFadingOut = false;
-                    _lineTracker?.Clear();
+                    _lastDisplayedSubtitle = null;
                     rtbChat.Document.Blocks.Clear();
                     WindowBlurHelper.Disable(this);
                     this.Background = Brushes.Transparent;
@@ -393,7 +329,6 @@ namespace Translumo.MVVM.Views
                 this.Closed += Window_Closed;
 
                 viewModel.Model.ChatCleared += ModelOnChatCleared;
-                _lineTracker = new SubtitleLineTracker(_configuration);
                 viewModel.TextWithOriginalRaised += ViewModelOnTextWithOriginalRaised;
 
                 _hideTimer = new DispatcherTimer(DispatcherPriority.Normal, this.Dispatcher);

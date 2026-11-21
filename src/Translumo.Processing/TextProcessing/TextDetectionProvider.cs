@@ -48,7 +48,7 @@ namespace Translumo.Processing.TextProcessing
                 return new TextDetectionResult(ocrEngine, _languageDescriptor)
                 {
                     ValidityScore = scorePrediction,
-                    Text = _configuration.KeepFormatting ? string.Join(Environment.NewLine, detectedLines) :  resultText,
+                    Text = resultText,
                     ValidatedText = validatedText
                 };
             }
@@ -65,7 +65,35 @@ namespace Translumo.Processing.TextProcessing
 
         private string PreProcessTextLines(IEnumerable<string> textLines)
         {
-            return RegexStorage.MultipleSpacesRegex.Replace(string.Join(' ', textLines), " ");
+            var lines = textLines?
+                .Where(l => !string.IsNullOrWhiteSpace(l))
+                .Select(l => l.Trim())
+                .ToList();
+
+            if (lines == null || lines.Count == 0)
+            {
+                return string.Empty;
+            }
+
+            var sb = new System.Text.StringBuilder();
+            for (int i = 0; i < lines.Count; i++)
+            {
+                var line = lines[i];
+                if (i > 0)
+                {
+                    if (sb.Length > 0 && sb[^1] == '-' && char.IsLetter(line[0]))
+                    {
+                        sb.Length--;
+                    }
+                    else
+                    {
+                        sb.Append(' ');
+                    }
+                }
+                sb.Append(line);
+            }
+
+            return RegexStorage.MultipleSpacesRegex.Replace(sb.ToString(), " ").Trim();
         }
 
         public void Dispose()
