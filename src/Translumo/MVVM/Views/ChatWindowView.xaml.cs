@@ -26,6 +26,15 @@ namespace Translumo.MVVM.Views
         [DllImport("user32.dll")]
         private static extern bool SetWindowDisplayAffinity(IntPtr hwnd, uint affinity);
 
+        [DllImport("user32.dll")]
+        public static extern bool ReleaseCapture();
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
+
+        private const int WM_NCLBUTTONDOWN = 0xA1;
+        private const int HT_CAPTION = 0x2;
+
         private const uint WDA_EXCLUDEFROMCAPTURE = 0x11;
         private ChatWindowConfiguration _configuration;
         private DispatcherTimer _hideTimer;
@@ -289,7 +298,7 @@ namespace Translumo.MVVM.Views
 
         private void rtbChat_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Left && e.ButtonState == MouseButtonState.Pressed)
+            if (e.ChangedButton == MouseButton.Left)
             {
                 if (_configuration?.AutoHideEnabled == true)
                 {
@@ -299,9 +308,14 @@ namespace Translumo.MVVM.Views
 
                 try
                 {
-                    this.DragMove();
+                    var helper = new System.Windows.Interop.WindowInteropHelper(this);
+                    if (helper.Handle != IntPtr.Zero)
+                    {
+                        ReleaseCapture();
+                        SendMessage(helper.Handle, WM_NCLBUTTONDOWN, (IntPtr)HT_CAPTION, IntPtr.Zero);
+                    }
                 }
-                catch (InvalidOperationException)
+                catch
                 {
                 }
 

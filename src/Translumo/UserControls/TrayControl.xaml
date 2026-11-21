@@ -5,6 +5,7 @@
     xmlns:common="clr-namespace:Translumo.MVVM.Common"
     xmlns:controls="clr-namespace:Translumo.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:system="clr-namespace:System;assembly=System.Runtime"
     xmlns:tb="http://www.hardcodet.net/taskbar"
@@ -15,7 +16,7 @@
     <UserControl.Resources>
         <system:Boolean x:Key="ConfirmationClose">False</system:Boolean>
 
-        <!-- Minimalist Dark ContextMenu Style -->
+        <!-- Clean Modern White ContextMenu Style -->
         <Style x:Key="ContextMenuDefaultStyle" TargetType="ContextMenu">
             <Setter Property="SnapsToDevicePixels" Value="True" />
             <Setter Property="OverridesDefaultStyle" Value="True" />
@@ -25,13 +26,13 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="ContextMenu">
                         <Border Name="Border"
-                                Background="#141414"
+                                Background="#FFFFFF"
                                 BorderThickness="1"
-                                BorderBrush="#2C2C2C"
-                                CornerRadius="8"
-                                Padding="4">
+                                BorderBrush="#E5E7EB"
+                                CornerRadius="12"
+                                Padding="6">
                             <Border.Effect>
-                                <DropShadowEffect BlurRadius="14" ShadowDepth="3" Direction="270" Color="#000000" Opacity="0.6" />
+                                <DropShadowEffect BlurRadius="18" ShadowDepth="4" Direction="270" Color="#28000000" RenderingBias="Performance" />
                             </Border.Effect>
                             <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Cycle" />
                         </Border>
@@ -40,19 +41,20 @@
             </Setter>
         </Style>
 
-        <!-- Minimalist Dark MenuItem Style -->
+        <!-- Clean Modern White MenuItem Style -->
         <Style x:Key="MenuItemDefaultStyle" TargetType="MenuItem">
-            <Setter Property="Foreground" Value="#D8D8D8" />
+            <Setter Property="Foreground" Value="#18181B" />
             <Setter Property="FontSize" Value="13" />
+            <Setter Property="FontWeight" Value="SemiBold" />
             <Setter Property="FontFamily" Value="Segoe UI Variable, Segoe UI, Arial, sans-serif" />
-            <Setter Property="Height" Value="32" />
+            <Setter Property="Height" Value="36" />
             <Setter Property="Cursor" Value="Hand" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="MenuItem">
                         <Border x:Name="ItemBorder"
-                                CornerRadius="6"
-                                Margin="0,1,0,1"
+                                CornerRadius="8"
+                                Margin="0,1"
                                 Padding="12,0,14,0"
                                 Background="Transparent"
                                 BorderThickness="1"
@@ -64,9 +66,9 @@
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsHighlighted" Value="True">
-                                <Setter TargetName="ItemBorder" Property="Background" Value="#242424" />
-                                <Setter TargetName="ItemBorder" Property="BorderBrush" Value="#333333" />
-                                <Setter Property="Foreground" Value="#FFFFFF" />
+                                <Setter TargetName="ItemBorder" Property="Background" Value="#F4F5F7" />
+                                <Setter TargetName="ItemBorder" Property="BorderBrush" Value="#E5E7EB" />
+                                <Setter Property="Foreground" Value="#000000" />
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -74,14 +76,14 @@
             </Setter>
         </Style>
 
-        <!-- Minimalist Separator Style -->
+        <!-- Clean Separator Style -->
         <Style x:Key="SeparatorDefaultStyle" TargetType="Separator">
             <Setter Property="Height" Value="1" />
-            <Setter Property="Margin" Value="4,3,4,3" />
+            <Setter Property="Margin" Value="4,4" />
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Separator">
-                        <Border Height="1" Background="#242424" SnapsToDevicePixels="True" />
+                        <Border Height="1" Background="#E5E7EB" SnapsToDevicePixels="True" />
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -91,6 +93,7 @@
         <tb:TaskbarIcon
             Name="TiIcon"
             DataContext="{Binding RelativeSource={RelativeSource AncestorType=controls:TrayControl}}"
+            LeftClickCommand="{Binding SettingsOpeningCommand}"
             DoubleClickCommand="{Binding SettingsOpeningCommand}"
             IconSource="pack://application:,,,/ocrtranslate;component/Resources/Icons/favicon.ico"
             ToolTipText="{StaticResource ApplicationName}">
@@ -99,18 +102,36 @@
                     <MenuItem
                         x:Name="First"
                         Command="{Binding SettingsOpeningCommand}"
-                        Header="{DynamicResource Str.Tray.ShowHideSettings}"
-                        Style="{StaticResource MenuItemDefaultStyle}" />
+                        Style="{StaticResource MenuItemDefaultStyle}">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <materialDesign:PackIcon Kind="CogOutline" Width="16" Height="16" Foreground="#71717A" VerticalAlignment="Center" Margin="0,0,10,0" />
+                                <TextBlock Text="{DynamicResource Str.Tray.ShowHideSettings}" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
                     <MenuItem
                         Command="{Binding ChatOpeningCommand}"
-                        Header="{DynamicResource Str.Tray.ShowHideTranslation}"
-                        Style="{StaticResource MenuItemDefaultStyle}" />
+                        Style="{StaticResource MenuItemDefaultStyle}">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <materialDesign:PackIcon Kind="Translate" Width="16" Height="16" Foreground="#71717A" VerticalAlignment="Center" Margin="0,0,10,0" />
+                                <TextBlock Text="{DynamicResource Str.Tray.ShowHideTranslation}" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
                     <Separator Style="{StaticResource SeparatorDefaultStyle}" />
                     <MenuItem
                         Command="{common:CloseAppCommand}"
                         CommandParameter="{StaticResource ConfirmationClose}"
-                        Header="{DynamicResource Str.Tray.Exit}"
-                        Style="{StaticResource MenuItemDefaultStyle}" />
+                        Style="{StaticResource MenuItemDefaultStyle}">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <materialDesign:PackIcon Kind="Power" Width="16" Height="16" Foreground="#EF4444" VerticalAlignment="Center" Margin="0,0,10,0" />
+                                <TextBlock Text="{DynamicResource Str.Tray.Exit}" Foreground="#DC2626" FontWeight="Bold" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
                 </ContextMenu>
             </tb:TaskbarIcon.ContextMenu>
         </tb:TaskbarIcon>

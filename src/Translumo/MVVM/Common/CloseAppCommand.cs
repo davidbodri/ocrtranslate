@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System;
+using System.Diagnostics;
+using System.Windows;
 using Translumo.Utils;
 
 namespace Translumo.MVVM.Common
@@ -23,7 +25,21 @@ namespace Translumo.MVVM.Common
                 }
             }
 
-            Application.Current.Shutdown();
+            try
+            {
+                Application.Current?.Shutdown();
+            }
+            catch
+            {
+            }
+
+            try
+            {
+                Process.GetCurrentProcess().Kill();
+            }
+            catch
+            {
+            }
         }
     }
 }

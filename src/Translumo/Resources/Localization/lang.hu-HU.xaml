@@ -14,9 +14,9 @@
     <system:String x:Key="Str.Title.SettingWindow" xml:space="preserve">Beállítások - BDSTUDIO.</system:String>
 
     <!--  Tray  -->
-    <system:String x:Key="Str.Tray.ShowHideSettings">Beállítások megjelenítése/elrejtése</system:String>
-    <system:String x:Key="Str.Tray.ShowHideTranslation">Fordítás megjelenítése/elrejtése</system:String>
-    <system:String x:Key="Str.Tray.Exit">Kilépés</system:String>
+    <system:String x:Key="Str.Tray.ShowHideSettings">Beállítások megnyitása</system:String>
+    <system:String x:Key="Str.Tray.ShowHideTranslation">Fordítás megjelenítése / elrejtése</system:String>
+    <system:String x:Key="Str.Tray.Exit">Bezárás</system:String>
 
     <!--  Chat  -->
     <system:String x:Key="Str.Chat.SettingsOpened">Zárja be a beállításokat a fordítás indításához</system:String>

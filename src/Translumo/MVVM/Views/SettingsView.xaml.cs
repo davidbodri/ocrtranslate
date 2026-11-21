@@ -1,9 +1,12 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Interop;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 using Translumo.Infrastructure.Language;
 using Translumo.MVVM.ViewModels;
@@ -91,18 +94,71 @@ namespace Translumo.MVVM.Views
         {
         }
 
+        [DllImport("user32.dll")]
+        public static extern bool ReleaseCapture();
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr SendMessage(IntPtr hWnd, int Msg, IntPtr wParam, IntPtr lParam);
+
+        private const int WM_NCLBUTTONDOWN = 0xA1;
+        private const int HT_CAPTION = 0x2;
+
+        public void DragWindow()
+        {
+            try
+            {
+                var helper = new WindowInteropHelper(this);
+                if (helper.Handle != IntPtr.Zero)
+                {
+                    ReleaseCapture();
+                    SendMessage(helper.Handle, WM_NCLBUTTONDOWN, (IntPtr)HT_CAPTION, IntPtr.Zero);
+                }
+            }
+            catch
+            {
+            }
+        }
+
+        private static bool IsInteractiveElement(DependencyObject dep)
+        {
+            while (dep != null)
+            {
+                if (dep is Button || dep is TextBox || dep is ComboBox || dep is Slider ||
+                    dep is ListBox || dep is ListBoxItem || dep is ScrollViewer ||
+                    dep is System.Windows.Controls.Primitives.ToggleButton ||
+                    dep is System.Windows.Controls.Primitives.ScrollBar)
+                {
+                    return true;
+                }
+
+                dep = VisualTreeHelper.GetParent(dep);
+            }
+            return false;
+        }
+
+        private void Window_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+            {
+                if (e.OriginalSource is DependencyObject dep && IsInteractiveElement(dep))
+                {
+                    return;
+                }
+
+                DragWindow();
+            }
+        }
+
         private void wSettings_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Left && e.ButtonState == MouseButtonState.Pressed)
+            if (e.ChangedButton == MouseButton.Left)
             {
-                try
+                if (e.OriginalSource is DependencyObject dep && IsInteractiveElement(dep))
                 {
-                    this.DragMove();
+                    return;
                 }
-                catch (InvalidOperationException)
-                {
-                    // DragMove requires primary mouse button to be down; ignore release race conditions
-                }
+
+                DragWindow();
             }
         }
 
