@@ -90,10 +90,7 @@ namespace Translumo.MVVM.Views
 
                 if (e.TextType == TextTypes.Translation)
                 {
-                    if (!string.IsNullOrWhiteSpace(e.Text))
-                    {
-                        DisplayTranslatedSubtitle(e.Text);
-                    }
+                    return;
                 }
             }
             else
@@ -215,7 +212,6 @@ namespace Translumo.MVVM.Views
                 return;
             }
 
-            _lastDisplayedSubtitle = null;
             StartFadeOut();
         }
 
@@ -345,7 +341,6 @@ namespace Translumo.MVVM.Views
         private void Window_Deactivated(object sender, EventArgs e)
         {
             this.Topmost = true;
-            this.Activate();
         }
 
         protected override void OnSourceInitialized(EventArgs e)

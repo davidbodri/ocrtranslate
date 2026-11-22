@@ -38,9 +38,7 @@ namespace Translumo.Utils
             {
                 int extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
                 extendedStyle &= ~WS_EX_TOOLWINDOW;
-                extendedStyle |= WS_EX_APPWINDOW;
                 SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle);
-                SetWindowPos(hwnd, IntPtr.Zero, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
             }
         }
 

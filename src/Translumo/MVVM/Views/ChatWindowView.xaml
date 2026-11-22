@@ -21,6 +21,7 @@
     Deactivated="Window_Deactivated"
     ResizeMode="CanResizeWithGrip"
     ShowInTaskbar="False"
+    Topmost="True"
     SourceInitialized="Window_SourceInitialized"
     Visibility="{Binding ChatWindowIsVisible, Converter={StaticResource BooleanToVisibilityConverter}, Mode=TwoWay}"
     WindowStyle="None"
