@@ -43,9 +43,30 @@ namespace Translumo.MVVM.ViewModels
             set => SetProperty(ref _selectedColor, value);
         }
 
+        public bool IsObsSetupMode
+        {
+            get => _chatMediator.IsObsSetupMode;
+            set
+            {
+                if (_chatMediator.IsObsSetupMode != value)
+                {
+                    if (value && Model.ExcludeFromCaptue)
+                    {
+                        Model.ExcludeFromCaptue = false;
+                    }
+                    _chatMediator.SetObsSetupMode(value);
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(ObsButtonText));
+                }
+            }
+        }
+
+        public string ObsButtonText => IsObsSetupMode ? "Mód leállítása" : "OBS / Streamlabs mód";
+
         public ICommand ChangeBackColorClickedCommand => new RelayCommand<Control>(OnChangeBackColorClicked);
         public ICommand ChangeFontColorClickedCommand => new RelayCommand<Control>(OnChangeFontColorClicked);
         public ICommand SendTestTextCommand => new RelayCommand(OnSendTestTextCommand);
+        public ICommand ToggleObsSetupModeCommand => new RelayCommand(OnToggleObsSetupMode);
         public ICommand ColorIsPickedCommand => new RelayCommand<bool>(OnColorPickedCommand);
 
         private ChatWindowConfiguration _model;
@@ -60,9 +81,21 @@ namespace Translumo.MVVM.ViewModels
         {
             this.Model = model;
             this._chatMediator = chatMediator;
+            this._chatMediator.ObsSetupModeChanged += ChatMediatorOnObsSetupModeChanged;
             this.AvailableAlignments = Enum.GetValues<TextAlignment>()
                 .Select(alignment => new DisplayAlignment(alignment, GetDisplayAlignmentText(alignment)))
                 .ToList();
+        }
+
+        private void OnToggleObsSetupMode()
+        {
+            IsObsSetupMode = !IsObsSetupMode;
+        }
+
+        private void ChatMediatorOnObsSetupModeChanged(object sender, bool e)
+        {
+            OnPropertyChanged(nameof(IsObsSetupMode));
+            OnPropertyChanged(nameof(ObsButtonText));
         }
 
         private string GetDisplayAlignmentText(TextAlignment alignment)
@@ -126,6 +159,10 @@ namespace Translumo.MVVM.ViewModels
 
         public void Dispose()
         {
+            if (_chatMediator != null)
+            {
+                _chatMediator.ObsSetupModeChanged -= ChatMediatorOnObsSetupModeChanged;
+            }
             LocalizationManager.ReleaseChangedValuesCallbacks(this);
         }
     }

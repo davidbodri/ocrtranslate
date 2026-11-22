@@ -23,11 +23,26 @@ namespace Translumo.Utils
 
         const int GWL_EXSTYLE = -20;
         const int WS_EX_DLGMODALFRAME = 0x0001;
+        const int WS_EX_TOOLWINDOW = 0x00000080;
+        const int WS_EX_APPWINDOW = 0x00040000;
         const int SWP_NOSIZE = 0x0001;
         const int SWP_NOMOVE = 0x0002;
         const int SWP_NOZORDER = 0x0004;
         const int SWP_FRAMECHANGED = 0x0020;
         const uint WM_SETICON = 0x0080;
+
+        public static void MakeCapturableInObs(Window window)
+        {
+            IntPtr hwnd = new WindowInteropHelper(window).Handle;
+            if (hwnd != IntPtr.Zero)
+            {
+                int extendedStyle = GetWindowLong(hwnd, GWL_EXSTYLE);
+                extendedStyle &= ~WS_EX_TOOLWINDOW;
+                extendedStyle |= WS_EX_APPWINDOW;
+                SetWindowLong(hwnd, GWL_EXSTYLE, extendedStyle);
+                SetWindowPos(hwnd, IntPtr.Zero, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE | SWP_NOZORDER | SWP_FRAMECHANGED);
+            }
+        }
 
         public static void RemoveIcon(Window window)
         {

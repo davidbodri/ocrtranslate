@@ -10,6 +10,24 @@ namespace Translumo.Services
         public event EventHandler<TranslatedEventArgs> TextRaised;
         public event EventHandler ClearTextsRaised; 
         public event EventHandler<TranslatedWithOriginalEventArgs> TextWithOriginalRaised;
+        public event EventHandler<bool> ObsSetupModeChanged;
+
+        private bool _isObsSetupMode;
+        public bool IsObsSetupMode => _isObsSetupMode;
+
+        public void SetObsSetupMode(bool enabled)
+        {
+            if (_isObsSetupMode != enabled)
+            {
+                _isObsSetupMode = enabled;
+                ObsSetupModeChanged?.RaiseOnUIThread(this, enabled);
+            }
+        }
+
+        public void ToggleObsSetupMode()
+        {
+            SetObsSetupMode(!_isObsSetupMode);
+        }
 
         public void SendText(string text, bool successful)
         {

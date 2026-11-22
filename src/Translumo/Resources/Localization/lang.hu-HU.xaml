@@ -16,6 +16,7 @@
     <!--  Tray  -->
     <system:String x:Key="Str.Tray.ShowHideSettings">Beállítások megnyitása</system:String>
     <system:String x:Key="Str.Tray.ShowHideTranslation">Fordítás megjelenítése / elrejtése</system:String>
+    <system:String x:Key="Str.Tray.ObsSetupMode">Streamlabs / OBS segéd</system:String>
     <system:String x:Key="Str.Tray.Exit">Bezárás</system:String>
 
     <!--  Chat  -->

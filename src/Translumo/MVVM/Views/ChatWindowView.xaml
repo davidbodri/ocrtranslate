@@ -8,7 +8,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:tb="http://www.hardcodet.net/taskbar"
-    Title="{StaticResource ApplicationName}"
+    Title="BDSTUDIO - Feliratok (OBS / Streamlabs)"
     Width="550"
     MinHeight="40"
     SizeToContent="Height"
@@ -37,7 +37,10 @@
     </b:Interaction.Triggers>
 
     <Grid>
-        <controls:TrayControl ChatOpeningCommand="{Binding ShowHideChatCommand}" SettingsOpeningCommand="{Binding ShowHideSettingsCommand}" />
+        <controls:TrayControl
+            ChatOpeningCommand="{Binding ShowHideChatCommand}"
+            SettingsOpeningCommand="{Binding ShowHideSettingsCommand}"
+            ObsSetupOpeningCommand="{Binding ToggleObsSetupModeCommand}" />
 
         <!-- Glossy Glass Container -->
         <Border

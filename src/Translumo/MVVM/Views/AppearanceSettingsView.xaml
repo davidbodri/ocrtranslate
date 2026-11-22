@@ -5,6 +5,7 @@
     xmlns:common="clr-namespace:Translumo.MVVM.Common"
     xmlns:controls="clr-namespace:Translumo.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     Name="wControl"
     HorizontalAlignment="Stretch"
@@ -203,6 +204,28 @@
                     Command="{Binding SendTestTextCommand}"
                     Content="{DynamicResource Str.Button.ShowText}"
                     Style="{DynamicResource PrimaryButton}" />
+
+                <!-- OBS / Streamlabs Live Streaming Section -->
+                <Border Margin="0,24,0,10" Background="#F8F9FA" BorderBrush="#E5E7EB" BorderThickness="1" CornerRadius="12" Padding="16">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,0,8">
+                            <materialDesign:PackIcon Kind="VideoOutline" Width="20" Height="20" Foreground="#000000" VerticalAlignment="Center" Margin="0,0,8,0" />
+                            <TextBlock Text="Streamlabs / OBS Élő Közvetítés" FontWeight="Bold" FontSize="14" Foreground="#000000" VerticalAlignment="Center" />
+                        </StackPanel>
+
+                        <TextBlock TextWrapping="Wrap" FontSize="12" Foreground="#4B5563" LineHeight="18" Margin="0,0,0,12">
+                            A felirat Streamlabs-hez és OBS-hez adásához kapcsold be a beállító módot. Ilyenkor a doboz folyamatosan látható marad a képernyőn egy minta szöveggel, így kényelmesen elhelyezheted és méretezheted a közvetítéseden.
+                            &#x0a;• Forrás típus: <Run FontWeight="SemiBold" Foreground="#111827">Ablakfelvétel (Window Capture)</Run>
+                            &#x0a;• Kiválasztandó ablak: <Run FontWeight="SemiBold" Foreground="#111827">[ocrtranslate.exe]: BDSTUDIO - Feliratok (OBS / Streamlabs)</Run>
+                            &#x0a;• Rögzítési mód (Capture Method): <Run FontWeight="SemiBold" Foreground="#111827">Windows 10 (1903 és újabb)</Run> (fontos az átlátszósághoz!)
+                        </TextBlock>
+
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                            <ToggleButton IsChecked="{Binding IsObsSetupMode}" Style="{StaticResource PrimaryToggleButton}" Margin="0,0,10,0" />
+                            <TextBlock Text="Streamlabs / OBS beállító mód (ablak zárolása minta szöveggel)" FontWeight="SemiBold" VerticalAlignment="Center" Foreground="#111827" />
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
             </StackPanel>
 
             <StackPanel

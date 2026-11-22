@@ -120,6 +120,16 @@
                             </StackPanel>
                         </MenuItem.Header>
                     </MenuItem>
+                    <MenuItem
+                        Command="{Binding ObsSetupOpeningCommand}"
+                        Style="{StaticResource MenuItemDefaultStyle}">
+                        <MenuItem.Header>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <materialDesign:PackIcon Kind="VideoOutline" Width="16" Height="16" Foreground="#71717A" VerticalAlignment="Center" Margin="0,0,10,0" />
+                                <TextBlock Text="{DynamicResource Str.Tray.ObsSetupMode}" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </MenuItem.Header>
+                    </MenuItem>
                     <Separator Style="{StaticResource SeparatorDefaultStyle}" />
                     <MenuItem
                         Command="{common:CloseAppCommand}"

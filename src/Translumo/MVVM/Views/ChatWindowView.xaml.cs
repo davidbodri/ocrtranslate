@@ -39,6 +39,7 @@ namespace Translumo.MVVM.Views
         private ChatWindowConfiguration _configuration;
         private DispatcherTimer _hideTimer;
         private bool _isFadingOut;
+        private bool _isObsSetupMode;
         private string _lastDisplayedSubtitle;
 
         public ChatWindowView()
@@ -48,6 +49,11 @@ namespace Translumo.MVVM.Views
 
         private void ModelOnChatFirstItemsRemoved(object sender, ChatFirstItemsRemovedEventArgs e)
         {
+            if (_isObsSetupMode)
+            {
+                return;
+            }
+
             RemoveFirstTextBlocks(e.NumberRemoved);
             if (_configuration?.AutoHideEnabled == true && rtbChat.Document.Blocks.Count == 0)
             {
@@ -178,6 +184,11 @@ namespace Translumo.MVVM.Views
 
         private void ResetHideTimer()
         {
+            if (_isObsSetupMode)
+            {
+                return;
+            }
+
             if (!Dispatcher.CheckAccess())
             {
                 Dispatcher.Invoke(ResetHideTimer);
@@ -199,7 +210,7 @@ namespace Translumo.MVVM.Views
         {
             _hideTimer.Stop();
 
-            if (_configuration?.AutoHideEnabled != true)
+            if (_isObsSetupMode || _configuration?.AutoHideEnabled != true)
             {
                 return;
             }
@@ -300,7 +311,7 @@ namespace Translumo.MVVM.Views
         {
             if (e.ChangedButton == MouseButton.Left)
             {
-                if (_configuration?.AutoHideEnabled == true)
+                if (_configuration?.AutoHideEnabled == true && !_isObsSetupMode)
                 {
                     _hideTimer?.Stop();
                     ShowBlackBar();
@@ -319,7 +330,7 @@ namespace Translumo.MVVM.Views
                 {
                 }
 
-                if (_configuration?.AutoHideEnabled == true)
+                if (_configuration?.AutoHideEnabled == true && !_isObsSetupMode)
                 {
                     ResetHideTimer();
                 }
@@ -350,6 +361,7 @@ namespace Translumo.MVVM.Views
 
                 viewModel.Model.ChatCleared += ModelOnChatCleared;
                 viewModel.TextWithOriginalRaised += ViewModelOnTextWithOriginalRaised;
+                viewModel.ObsSetupModeChanged += ViewModelOnObsSetupModeChanged;
 
                 _hideTimer = new DispatcherTimer(DispatcherPriority.Normal, this.Dispatcher);
                 _hideTimer.Tick += HideTimerOnTick;
@@ -368,6 +380,7 @@ namespace Translumo.MVVM.Views
             var viewModel = DataContext as ChatWindowViewModel;
             if (viewModel != null)
             {
+                viewModel.ObsSetupModeChanged -= ViewModelOnObsSetupModeChanged;
                 viewModel.TextWithOriginalRaised -= ViewModelOnTextWithOriginalRaised;
                 if (viewModel.Model != null)
                 {
@@ -400,6 +413,11 @@ namespace Translumo.MVVM.Views
             }
             else if (e.PropertyName == nameof(ChatWindowConfiguration.AutoHideEnabled))
             {
+                if (_isObsSetupMode)
+                {
+                    return;
+                }
+
                 Dispatcher.Invoke(() =>
                 {
                     if (!_configuration.AutoHideEnabled)
@@ -451,6 +469,8 @@ namespace Translumo.MVVM.Views
 
         private void Window_SourceInitialized(object sender, EventArgs e)
         {
+            WindowHelper.MakeCapturableInObs(this);
+
             var viewModel = DataContext as ChatWindowViewModel;
 
             viewModel.Model.ChatItemAdded += ModelOnChatItemAdded;
@@ -458,6 +478,71 @@ namespace Translumo.MVVM.Views
             viewModel.Model.Configuration.ExcludeFromCaptueChanged += Configuration_ExcludeFromCaptueChanged;
 
             ExcludeFromCapture(viewModel.Model.Configuration.ExcludeFromCaptue);
+        }
+
+        private void ViewModelOnObsSetupModeChanged(object sender, bool isSetupMode)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                _isObsSetupMode = isSetupMode;
+                if (isSetupMode)
+                {
+                    _hideTimer?.Stop();
+                    if (_isFadingOut)
+                    {
+                        this.BeginAnimation(UIElement.OpacityProperty, null);
+                        _isFadingOut = false;
+                    }
+                    UpdateBlur();
+                    this.Opacity = 1.0;
+
+                    if (!this.IsVisible)
+                    {
+                        this.Show();
+                    }
+
+                    rtbChat.Document.Blocks.Clear();
+
+                    var p1 = new Paragraph
+                    {
+                        LineHeight = fontTextBlockInstance.LineHeight,
+                        TextAlignment = fontTextBlockInstance.TextAlignment,
+                        Margin = new Thickness(0, 0, 0, 4)
+                    };
+                    var run1 = GetRunInstance(TextTypes.Translation).Clone("BDSTUDIO — Streamlabs / OBS Felirat Minta");
+                    p1.Inlines.Add(run1);
+                    rtbChat.Document.Blocks.Add(p1);
+
+                    var p2 = new Paragraph
+                    {
+                        LineHeight = fontTextBlockInstance.LineHeight,
+                        TextAlignment = fontTextBlockInstance.TextAlignment,
+                        Margin = new Thickness(0, 0, 0, 2)
+                    };
+                    var run2 = GetRunInstance(TextTypes.Info).Clone("Helyezd el és méretezd ezt az ablakot a közvetítésedben!");
+                    p2.Inlines.Add(run2);
+                    rtbChat.Document.Blocks.Add(p2);
+
+                    var p3 = new Paragraph
+                    {
+                        LineHeight = fontTextBlockInstance.LineHeight,
+                        TextAlignment = fontTextBlockInstance.TextAlignment,
+                        Margin = new Thickness(0, 0, 0, 0)
+                    };
+                    var run3 = GetRunInstance(TextTypes.Info).Clone("Rögzítési mód: Windows 10 (1903 és újabb)");
+                    p3.Inlines.Add(run3);
+                    rtbChat.Document.Blocks.Add(p3);
+                }
+                else
+                {
+                    _lastDisplayedSubtitle = null;
+                    rtbChat.Document.Blocks.Clear();
+                    if (_configuration?.AutoHideEnabled == true)
+                    {
+                        HideImmediately();
+                    }
+                }
+            });
         }
 
         private void Configuration_ExcludeFromCaptueChanged(object sender, EventArgs e)

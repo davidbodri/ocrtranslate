@@ -18,6 +18,7 @@
     <!--  Tray  -->
     <system:String x:Key="Str.Tray.ShowHideSettings">Show/Hide settings</system:String>
     <system:String x:Key="Str.Tray.ShowHideTranslation">Show/Hide translation</system:String>
+    <system:String x:Key="Str.Tray.ObsSetupMode">Streamlabs / OBS Helper</system:String>
     <system:String x:Key="Str.Tray.Exit">Exit</system:String>
 
     <!--  Chat  -->

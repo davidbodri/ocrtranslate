@@ -28,9 +28,11 @@ namespace Translumo.MVVM.ViewModels
         }
 
         public event EventHandler<TranslatedWithOriginalEventArgs> TextWithOriginalRaised;
+        public event EventHandler<bool> ObsSetupModeChanged;
 
         public ICommand ShowHideSettingsCommand => new RelayCommand(OnShowHideSettings);
         public ICommand ShowHideChatCommand => new RelayCommand(OnShowHideChat);
+        public ICommand ToggleObsSetupModeCommand => new RelayCommand(() => _chatTextMediator.ToggleObsSetupMode());
         public ICommand LoadedCommand => new RelayCommand(OnLoadedCommand);
 
         private bool _chatWindowIsVisible = true;
@@ -41,6 +43,7 @@ namespace Translumo.MVVM.ViewModels
         private readonly ILogger _logger;
         private readonly HotKeysServiceManager _hotKeysServiceManager;
         private readonly UpdateManager _updateManager;
+        private readonly ChatUITextMediator _chatTextMediator;
 
         public ChatWindowViewModel(ChatWindowModel model, HotKeysServiceManager hotKeysManager, ChatUITextMediator chatTextMediator, UpdateManager updateManager, 
             DialogService dialogService, IServiceProvider serviceProvider, ILogger<ChatWindowViewModel> logger)
@@ -51,6 +54,7 @@ namespace Translumo.MVVM.ViewModels
             this._serviceProvider = serviceProvider;
             this._hotKeysServiceManager = hotKeysManager;
             this._updateManager = updateManager;
+            this._chatTextMediator = chatTextMediator;
 
             hotKeysManager.SelectAreaKeyPressed += HotKeysManagerOnSelectAreaKeyPressed;
             hotKeysManager.TranslationStateKeyPressed += HotKeysManagerOnTranslationStateKeyPressed;
@@ -63,6 +67,7 @@ namespace Translumo.MVVM.ViewModels
             chatTextMediator.TextRaised += ChatTextMediatorOnTextRaised;
             chatTextMediator.ClearTextsRaised += ChatTextMediatorOnClearTextsRaised;
             chatTextMediator.TextWithOriginalRaised += ChatTextMediatorOnTextWithOriginalRaised;
+            chatTextMediator.ObsSetupModeChanged += (s, enabled) => ObsSetupModeChanged?.Invoke(this, enabled);
         }
 
         private void ChatTextMediatorOnTextWithOriginalRaised(object sender, TranslatedWithOriginalEventArgs e)

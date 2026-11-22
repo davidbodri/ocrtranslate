@@ -11,6 +11,7 @@ namespace Translumo.Controls
     {
         public static readonly DependencyProperty SettingsOpeningCommandProperty = DependencyProperty.Register("SettingsOpeningCommand", typeof(ICommand), typeof(TrayControl));
         public static readonly DependencyProperty ChatOpeningCommandProperty = DependencyProperty.Register("ChatOpeningCommand", typeof(ICommand), typeof(TrayControl));
+        public static readonly DependencyProperty ObsSetupOpeningCommandProperty = DependencyProperty.Register("ObsSetupOpeningCommand", typeof(ICommand), typeof(TrayControl));
 
         public ICommand SettingsOpeningCommand
         {
@@ -22,6 +23,12 @@ namespace Translumo.Controls
         {
             get { return (ICommand)GetValue(ChatOpeningCommandProperty); }
             set { SetValue(ChatOpeningCommandProperty, value); }
+        }
+
+        public ICommand ObsSetupOpeningCommand
+        {
+            get { return (ICommand)GetValue(ObsSetupOpeningCommandProperty); }
+            set { SetValue(ObsSetupOpeningCommandProperty, value); }
         }
         
 
